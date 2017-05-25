@@ -19,14 +19,14 @@ public class LockedNumberServiceImp implements LockedNumberService {
     }
 
     @Override
-    public LockedNumberEntity read(Integer id) {
+    public LockedNumberEntity getOne(Long id) {
         if(!repository.exists(id))
             throw new EntityNotFoundException("LockedNumber not found");
         return repository.findOne(id);
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         if(!repository.exists(id))
             throw new EntityNotFoundException("LockedNumber not found");
         repository.delete(id);
@@ -36,5 +36,25 @@ public class LockedNumberServiceImp implements LockedNumberService {
     public LockedNumberEntity create(LockedNumberEntity lockedNumber) {
 
         return repository.save(lockedNumber);
+    }
+
+    @Override
+    public boolean exists(LockedNumberEntity lockedNumber) {
+        return repository.exists(lockedNumber.getLckId());
+    }
+
+    @Override
+    public LockedNumberEntity update(LockedNumberEntity entry, LockedNumberEntity persisted) {
+        LockedNumberEntity toSave = updateModelData(entry, persisted);
+        return repository.save(toSave);
+    }
+
+    private LockedNumberEntity updateModelData(LockedNumberEntity entry, LockedNumberEntity persisted) {
+        persisted.setLckDn(entry.getLckDn());
+        persisted.setLckLastUpdateUtc(entry.getLckLastUpdateUtc());
+        persisted.setLckScbId(entry.getLckScbId());
+        persisted.setLckSvtId(entry.getLckSvtId());
+        persisted.setLckDn(entry.getLckDn());
+        return persisted;
     }
 }

@@ -19,14 +19,14 @@ public class CallHuntingServiceImp implements CallHuntingService {
     }
 
     @Override
-    public CallHuntingEntity read(Integer id) {
+    public CallHuntingEntity getOne(Long id) {
         if(!repository.exists(id))
             throw new EntityNotFoundException("CallHunting not found");
         return repository.findOne(id);
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         if(!repository.exists(id))
             throw new EntityNotFoundException("CallHunting not found");
         repository.delete(id);
@@ -35,5 +35,19 @@ public class CallHuntingServiceImp implements CallHuntingService {
     @Override
     public CallHuntingEntity create(CallHuntingEntity callhunting) {
         return repository.save(callhunting);
+    }
+
+    @Override
+    public boolean exists(CallHuntingEntity callHunting) {
+        return repository.exists(callHunting.getChtId());
+    }
+
+    @Override
+    public CallHuntingEntity update(CallHuntingEntity entry, CallHuntingEntity persisted) {
+        persisted.setChtDn(entry.getChtDn());
+        persisted.setChtLastUpdateUtc(entry.getChtLastUpdateUtc());
+        persisted.setChtPriority(entry.getChtPriority());
+        persisted.setChtScbId(entry.getChtScbId());
+        return persisted;
     }
 }

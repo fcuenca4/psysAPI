@@ -1,11 +1,15 @@
 package com.services;
+
 import com.models.CallHuntingEntity;
 
 import java.util.List;
 
 public interface CallHuntingService {
     List<CallHuntingEntity>  getAll();
-    CallHuntingEntity read(Integer id);
-    void delete(Integer id);
-    CallHuntingEntity create(CallHuntingEntity CallHunting);
+    CallHuntingEntity getOne(Long id);
+    void delete(Long id);
+    CallHuntingEntity create(CallHuntingEntity callHunting);
+    boolean exists(CallHuntingEntity callHunting);
+    CallHuntingEntity update(CallHuntingEntity entry, CallHuntingEntity persisted);
 }
+

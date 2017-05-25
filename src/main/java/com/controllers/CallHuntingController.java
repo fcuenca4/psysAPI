@@ -16,25 +16,43 @@ public class CallHuntingController {
     @Autowired
     private CallHuntingService service;
 
-    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<List<CallHuntingEntity>> getAll() {
-        List<CallHuntingEntity> toReturn = service.getAll();
-        return new ResponseEntity<>(toReturn, HttpStatus.OK);
+        List<CallHuntingEntity> callHunting = service.getAll();
+        return new ResponseEntity<>(callHunting, HttpStatus.OK);
     }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         service.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<CallHuntingEntity> read(@PathVariable("id") Integer id) {
-        CallHuntingEntity toReturn = service.read(id);
-        return new ResponseEntity<>(toReturn, HttpStatus.OK);
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CallHuntingEntity> read(@PathVariable("id") Long id) {
+        CallHuntingEntity toReturn = service.getOne(id);
+        if (toReturn != null)
+            return new ResponseEntity<>(toReturn, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
-    public ResponseEntity<CallHuntingEntity> create( @RequestBody CallHuntingEntity callhunting) {
-        CallHuntingEntity toReturn = service.create(callhunting);
+
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public ResponseEntity<CallHuntingEntity> create(@RequestBody CallHuntingEntity callHunting) {
+        if (service.exists(callHunting))
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        CallHuntingEntity toReturn = service.create(callHunting);
         return new ResponseEntity<>(toReturn, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<CallHuntingEntity> update(@PathVariable("id") long id, @RequestBody CallHuntingEntity entry) {
+        CallHuntingEntity current = service.getOne(id);
+        if (current == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        CallHuntingEntity toReturn =service.update(entry,current);
+        return new ResponseEntity<>(toReturn, HttpStatus.OK);
     }
 
 }

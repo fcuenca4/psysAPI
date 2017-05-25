@@ -5,7 +5,9 @@ import java.util.List;
 
 public interface SubscriberService {
      List<SubscriberEntity>  getAll();
-     SubscriberEntity read(Integer id);
-     void delete(Integer id);
+     SubscriberEntity getOne(Long id);
+     void delete(Long id);
      SubscriberEntity create(SubscriberEntity subscriber);
+     boolean exists(SubscriberEntity subscriber);
+     SubscriberEntity update(SubscriberEntity entry, SubscriberEntity persisted);
 }

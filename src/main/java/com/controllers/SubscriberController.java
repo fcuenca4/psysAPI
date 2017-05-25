@@ -15,36 +15,46 @@ import java.util.List;
 public class SubscriberController {
 
     @Autowired
-    private SubscriberService subscriberService;
+    private SubscriberService service;
 
-    @GetMapping
-    @RequestMapping(value = "")
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<List<SubscriberEntity>> getAll() {
-        List<SubscriberEntity> subscribers = subscriberService.getAll();
+        List<SubscriberEntity> subscribers = service.getAll();
         return new ResponseEntity<>(subscribers, HttpStatus.OK);
     }
 
-    @DeleteMapping
-    @RequestMapping(value = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
-        subscriberService.delete(id);
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+        service.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<SubscriberEntity> read(@PathVariable("id") Integer id) {
-        SubscriberEntity toReturn = subscriberService.read(id);
-        return new ResponseEntity<>(toReturn, HttpStatus.OK);
+    public ResponseEntity<SubscriberEntity> read(@PathVariable("id") Long id) {
+        SubscriberEntity toReturn = service.getOne(id);
+        if (toReturn != null)
+            return new ResponseEntity<>(toReturn, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponseEntity<SubscriberEntity> create( @RequestBody SubscriberEntity subscriber) {
-        SubscriberEntity toReturn = subscriberService.create(subscriber);
+    public ResponseEntity<SubscriberEntity> create(@RequestBody SubscriberEntity subscriber) {
+        if (service.exists(subscriber))
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        SubscriberEntity toReturn = service.create(subscriber);
         return new ResponseEntity<>(toReturn, HttpStatus.CREATED);
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<SubscriberEntity> update(@PathVariable("id") long id, @RequestBody SubscriberEntity entry) {
+        SubscriberEntity current = service.getOne(id);
+        if (current == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        SubscriberEntity toReturn =service.update(entry,current);
+        return new ResponseEntity<>(toReturn, HttpStatus.OK);
+    }
 }
 
 

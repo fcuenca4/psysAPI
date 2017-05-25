@@ -14,28 +14,47 @@ import java.util.List;
 @RequestMapping("/black_white_list")
 public class DecoratorController {
 
+
     @Autowired
     private DecoratorService service;
 
-    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<List<BlackWhiteListEntity>> getAll() {
-        List<BlackWhiteListEntity> toReturn = service.getAll();
-        return new ResponseEntity<>(toReturn, HttpStatus.OK);
+        List<BlackWhiteListEntity> blackWhiteList = service.getAll();
+        return new ResponseEntity<>(blackWhiteList, HttpStatus.OK);
     }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         service.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<BlackWhiteListEntity> read(@PathVariable("id") Integer id) {
-        BlackWhiteListEntity toReturn = service.read(id);
-        return new ResponseEntity<>(toReturn, HttpStatus.OK);
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BlackWhiteListEntity> read(@PathVariable("id") Long id) {
+        BlackWhiteListEntity toReturn = service.getOne(id);
+        if (toReturn != null)
+            return new ResponseEntity<>(toReturn, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
-    public ResponseEntity<BlackWhiteListEntity> create( @RequestBody BlackWhiteListEntity decorator) {
-        BlackWhiteListEntity toReturn = service.create(decorator);
+
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public ResponseEntity<BlackWhiteListEntity> create(@RequestBody BlackWhiteListEntity blackWhiteList) {
+        if (service.exists(blackWhiteList))
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        BlackWhiteListEntity toReturn = service.create(blackWhiteList);
         return new ResponseEntity<>(toReturn, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<BlackWhiteListEntity> update(@PathVariable("id") long id, @RequestBody BlackWhiteListEntity entry) {
+        BlackWhiteListEntity current = service.getOne(id);
+        if (current == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        BlackWhiteListEntity toReturn =service.update(entry,current);
+        return new ResponseEntity<>(toReturn, HttpStatus.OK);
     }
 }
 
