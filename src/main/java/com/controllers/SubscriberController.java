@@ -17,22 +17,29 @@ public class SubscriberController {
     @Autowired
     private SubscriberService subscriberService;
 
-    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping
+    @RequestMapping(value = "")
     public ResponseEntity<List<SubscriberEntity>> getAll() {
         List<SubscriberEntity> subscribers = subscriberService.getAll();
         return new ResponseEntity<>(subscribers, HttpStatus.OK);
     }
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+
+    @DeleteMapping
+    @RequestMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         subscriberService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
+
+    @GetMapping
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SubscriberEntity> read(@PathVariable("id") Integer id) {
         SubscriberEntity toReturn = subscriberService.read(id);
         return new ResponseEntity<>(toReturn, HttpStatus.OK);
     }
-    @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<SubscriberEntity> create( @RequestBody SubscriberEntity subscriber) {
         SubscriberEntity toReturn = subscriberService.create(subscriber);
         return new ResponseEntity<>(toReturn, HttpStatus.CREATED);
