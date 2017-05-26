@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface CallHuntingRepository extends JpaRepository<CallHuntingEntity,Long> {
     List<CallHuntingEntity> findAllByChtScbId(Long id);
-    @Query("SELECT p FROM CallHuntingEntity p WHERE p.chtId = :ChtId AND p.lckScbId = :ScbId")
+    @Query("SELECT p FROM CallHuntingEntity p WHERE p.chtId = :ChtId AND p.chtScbId = :ScbId")
     CallHuntingEntity findByChtIdAndChtScbId(@Param("ScbId") Long ScbId, @Param("ChtId")Long lckId);
 }
 
