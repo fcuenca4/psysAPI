@@ -1,4 +1,5 @@
 package com.controllers;
+
 import com.models.CallHuntingEntity;
 import com.services.CallHuntingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/call_hunting")
 public class CallHuntingController {
@@ -51,10 +53,10 @@ public class CallHuntingController {
         if (current == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        CallHuntingEntity toReturn =service.update(entry,current);
+        CallHuntingEntity toReturn = service.update(entry, current);
         return new ResponseEntity<>(toReturn, HttpStatus.OK);
-    }
 
+    }
 }
 
 

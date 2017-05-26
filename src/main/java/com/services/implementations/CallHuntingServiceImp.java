@@ -50,4 +50,9 @@ public class CallHuntingServiceImp implements CallHuntingService {
         persisted.setChtScbId(entry.getChtScbId());
         return persisted;
     }
+
+    @Override
+    public List<CallHuntingEntity> findAllByLckScbId(Long id) {
+        return repository.findAllByChtScbId(id);
+    }
 }

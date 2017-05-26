@@ -11,5 +11,7 @@ public interface CallHuntingService {
     CallHuntingEntity create(CallHuntingEntity callHunting);
     boolean exists(CallHuntingEntity callHunting);
     CallHuntingEntity update(CallHuntingEntity entry, CallHuntingEntity persisted);
+    List<CallHuntingEntity> findAllByLckScbId(Long id);
+
 }
 

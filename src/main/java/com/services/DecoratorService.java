@@ -11,5 +11,7 @@ public interface DecoratorService {
     BlackWhiteListEntity create(BlackWhiteListEntity blackwhite);
     boolean exists(BlackWhiteListEntity blackwhite);
     BlackWhiteListEntity update(BlackWhiteListEntity entry, BlackWhiteListEntity persisted);
+    List<BlackWhiteListEntity> findAllByLckScbId(Long id);
+
 }
 

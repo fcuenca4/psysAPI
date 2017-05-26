@@ -50,6 +50,11 @@ public class DecoratorServiceImp implements DecoratorService {
         return repository.save(toSave);
     }
 
+    @Override
+    public List<BlackWhiteListEntity> findAllByLckScbId(Long id) {
+        return repository.findAllByBwlScbId(id);
+    }
+
     private BlackWhiteListEntity updateModelData(BlackWhiteListEntity entry, BlackWhiteListEntity persisted) {
         persisted.setBwlBlackWhiteList(entry.getBwlBlackWhiteList());
         persisted.setBwlDn(entry.getBwlDn());

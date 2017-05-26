@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/black_white_list")
 public class DecoratorController {
@@ -53,7 +54,7 @@ public class DecoratorController {
         if (current == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        BlackWhiteListEntity toReturn =service.update(entry,current);
+        BlackWhiteListEntity toReturn = service.update(entry, current);
         return new ResponseEntity<>(toReturn, HttpStatus.OK);
     }
 }

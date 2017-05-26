@@ -11,5 +11,7 @@ public interface LockedNumberService {
     LockedNumberEntity create(LockedNumberEntity lockedNumber);
     boolean exists(LockedNumberEntity lockedNumber);
     LockedNumberEntity update(LockedNumberEntity entry, LockedNumberEntity persisted);
+    List<LockedNumberEntity> findAllByLckScbId(Long id);
+
 }
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/lockedNumbers")
 public class LockedNumberController {
@@ -52,7 +53,7 @@ public class LockedNumberController {
         if (current == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        LockedNumberEntity toReturn =service.update(entry,current);
+        LockedNumberEntity toReturn = service.update(entry, current);
         return new ResponseEntity<>(toReturn, HttpStatus.OK);
     }
 }
