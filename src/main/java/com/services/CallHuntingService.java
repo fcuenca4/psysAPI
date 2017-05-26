@@ -13,5 +13,6 @@ public interface CallHuntingService {
     CallHuntingEntity update(CallHuntingEntity entry, CallHuntingEntity persisted);
     List<CallHuntingEntity> findAllByLckScbId(Long id);
 
+    CallHuntingEntity findByChtIdAndChtScbId(Long id, Long call_huntingID);
 }
 

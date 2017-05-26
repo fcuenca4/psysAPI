@@ -24,4 +24,5 @@ com/PsysApplication.class
 com/services/LockedNumberService.class
 com/models/CallHuntingEntity.class
 com/services/implementations/LockedNumberServiceImp.class
+com/models/ResponseDATA.class
 com/repositories/CallHuntingRepository.class

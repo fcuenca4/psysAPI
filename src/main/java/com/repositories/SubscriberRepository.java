@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SubscriberRepository extends JpaRepository<SubscriberEntity,Long> {
+    SubscriberEntity findByScbDn(Long ScbDn);
 }
 

@@ -50,6 +50,11 @@ public class SubscriberServiceImp implements SubscriberService {
         return repository.save(toSave);
     }
 
+    @Override
+    public SubscriberEntity getOneByScbDn(Long scbDn) {
+        return repository.findByScbDn(scbDn);
+    }
+
     private SubscriberEntity updateModelData(SubscriberEntity entry, SubscriberEntity persisted) {
         persisted.setScbAddressDepartment(entry.getScbAddressDepartment());
         persisted.setScbAddressFloor(entry.getScbAddressFloor());

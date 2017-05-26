@@ -54,6 +54,12 @@ public class LockedNumberServiceImp implements LockedNumberService {
         return repository.findAllByLckScbId(id);
     }
 
+    @Override
+    public LockedNumberEntity findByLckIdAndLckScbId(Long LckId, Long ScbId) {
+        return repository.findByLckIdAndLckScbId(LckId,ScbId);
+    }
+
+
     private LockedNumberEntity updateModelData(LockedNumberEntity entry, LockedNumberEntity persisted) {
 
         persisted.setLckDn(entry.getLckDn());

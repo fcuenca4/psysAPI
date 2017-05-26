@@ -13,7 +13,7 @@ public class BlackWhiteListEntity {
     private long bwlScbId;
     private String bwlBlackWhiteList;
     private long bwlSvtId;
-    private long bwlDn;
+    private String bwlDn;
     private Timestamp bwlLastUpdateUtc;
 
     @Id
@@ -63,12 +63,12 @@ public class BlackWhiteListEntity {
     }
 
     @Basic
-    @Column(name = "BWL_DN", nullable = false, precision = 0)
-    public long getBwlDn() {
+    @Column(name = "BWL_DN", nullable = false, length = 64)
+    public String getBwlDn() {
         return bwlDn;
     }
 
-    public void setBwlDn(long bwlDn) {
+    public void setBwlDn(String bwlDn) {
         this.bwlDn = bwlDn;
     }
 
@@ -82,6 +82,7 @@ public class BlackWhiteListEntity {
         this.bwlLastUpdateUtc = bwlLastUpdateUtc;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -92,13 +93,10 @@ public class BlackWhiteListEntity {
         if (bwlId != that.bwlId) return false;
         if (bwlScbId != that.bwlScbId) return false;
         if (bwlSvtId != that.bwlSvtId) return false;
-        if (bwlDn != that.bwlDn) return false;
         if (bwlBlackWhiteList != null ? !bwlBlackWhiteList.equals(that.bwlBlackWhiteList) : that.bwlBlackWhiteList != null)
             return false;
-        if (bwlLastUpdateUtc != null ? !bwlLastUpdateUtc.equals(that.bwlLastUpdateUtc) : that.bwlLastUpdateUtc != null)
-            return false;
-
-        return true;
+        if (bwlDn != null ? !bwlDn.equals(that.bwlDn) : that.bwlDn != null) return false;
+        return bwlLastUpdateUtc != null ? bwlLastUpdateUtc.equals(that.bwlLastUpdateUtc) : that.bwlLastUpdateUtc == null;
     }
 
     @Override
@@ -107,7 +105,7 @@ public class BlackWhiteListEntity {
         result = 31 * result + (int) (bwlScbId ^ (bwlScbId >>> 32));
         result = 31 * result + (bwlBlackWhiteList != null ? bwlBlackWhiteList.hashCode() : 0);
         result = 31 * result + (int) (bwlSvtId ^ (bwlSvtId >>> 32));
-        result = 31 * result + (int) (bwlDn ^ (bwlDn >>> 32));
+        result = 31 * result + (bwlDn != null ? bwlDn.hashCode() : 0);
         result = 31 * result + (bwlLastUpdateUtc != null ? bwlLastUpdateUtc.hashCode() : 0);
         return result;
     }
