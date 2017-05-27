@@ -10,5 +10,5 @@ public interface SubscriberService {
      SubscriberEntity create(SubscriberEntity subscriber);
      boolean exists(SubscriberEntity subscriber);
      SubscriberEntity update(SubscriberEntity entry, SubscriberEntity persisted);
-     SubscriberEntity getOneByScbDn(Long scbDn);
+     List<SubscriberEntity> getAllByScbDn(Long scbDn);
 }

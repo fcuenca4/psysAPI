@@ -32,11 +32,11 @@ public class SubscriberController {
         List<SubscriberEntity> subscribers = subscriberService.getAll();
         return new ResponseEntity<>(new ResponseDATA<>(subscribers, subscribers.size()), HttpStatus.OK);
     }
-    @RequestMapping(value = "/dn/{scbdn}", method = RequestMethod.GET)
-    public ResponseEntity<SubscriberEntity> getSubscriberByScbDn(@PathVariable("ScbDn") Long ScbDn) {
-        SubscriberEntity toReturn = subscriberService.getOneByScbDn(ScbDn);
+    @RequestMapping(value = "/dn/{id}", method = RequestMethod.GET)
+    public ResponseEntity<ResponseDATA<List<SubscriberEntity>>> getSubscriberByScbDn(@PathVariable("id") Long ScbDn) {
+        List<SubscriberEntity> toReturn = subscriberService.getAllByScbDn(ScbDn);
         if (toReturn != null)
-            return new ResponseEntity<>(toReturn, HttpStatus.OK);
+            return new ResponseEntity<>(new ResponseDATA<>(toReturn,toReturn.size()), HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -84,7 +84,7 @@ public class SubscriberController {
     }
 
     @RequestMapping(value = "/{id}/lockedNumber/{lockedNumberID}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> deleteLockedNumber(@PathVariable("id") Long id, @PathVariable("id") Long lockedNumberID) {
+    public ResponseEntity<Void> deleteLockedNumber(@PathVariable("id") Long id, @PathVariable("lockedNumberID") Long lockedNumberID) {
         LockedNumberEntity toRet = lockedNumberService.findByLckIdAndLckScbId(id, lockedNumberID);
         if (toRet != null)
             lockedNumberService.delete(toRet.getLckId());
@@ -126,7 +126,7 @@ public class SubscriberController {
     }
 
     @RequestMapping(value = "/{id}/call_hunting/{call_huntingID}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> deleteCallHunting(@PathVariable("id") Long id, @PathVariable("id") Long call_huntingID) {
+    public ResponseEntity<Void> deleteCallHunting(@PathVariable("id") Long id, @PathVariable("call_huntingID") Long call_huntingID) {
         CallHuntingEntity toRet = callHuntingService.findByChtIdAndChtScbId(id, call_huntingID);
         if (toRet != null)
             callHuntingService.delete(toRet.getChtId());
@@ -157,8 +157,6 @@ public class SubscriberController {
         CallHuntingEntity toReturn = callHuntingService.update(entry, current);
         return new ResponseEntity<>(toReturn, HttpStatus.OK);
     }
-
-
     @RequestMapping(value = "/{id}/black_white_list", method = RequestMethod.GET)
     public ResponseEntity<ResponseDATA<List<BlackWhiteListEntity>>> getBlackWhiteList(@PathVariable("id") long id) {
         SubscriberEntity subscriber = subscriberService.getOne(id);
@@ -166,6 +164,38 @@ public class SubscriberController {
         if (subscriber != null)
             return new ResponseEntity<>(new ResponseDATA<>(toRet, toRet.size()), HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    @RequestMapping(value = "/{id}/black_white_list/{black_white_listID}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteBlackWhiteList(@PathVariable("id") Long id, @PathVariable("black_white_listID") Long black_white_listID) {
+        BlackWhiteListEntity toRet = decoratorService.findByBwlIdAndBwlScbId(id, black_white_listID);
+        if (toRet != null)
+            decoratorService.delete(toRet.getBwlId());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @RequestMapping(value = "/{id}/black_white_list/", method = RequestMethod.POST)
+    public ResponseEntity<BlackWhiteListEntity> createBlackWhiteList(@RequestBody BlackWhiteListEntity black_white_list) {
+        if (decoratorService.exists(black_white_list))
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        BlackWhiteListEntity toReturn = decoratorService.create(black_white_list);
+        return new ResponseEntity<>(toReturn, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/{id}/black_white_list/{black_white_listID}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BlackWhiteListEntity> getBlackWhiteList(@PathVariable("id") Long subscriberID, @PathVariable("black_white_listID") Long black_white_listID) {
+        BlackWhiteListEntity toRet = decoratorService.findByBwlIdAndBwlScbId(subscriberID, black_white_listID);
+        if (toRet != null)
+            return new ResponseEntity<>(toRet, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    @RequestMapping(value = "/{id}/black_white_list/{black_white_listID}", method = RequestMethod.PUT)
+    public ResponseEntity<BlackWhiteListEntity> updateBlackWhiteList(@PathVariable("black_white_listID") long black_white_listID, @RequestBody BlackWhiteListEntity entry) {
+        BlackWhiteListEntity current = decoratorService.getOne(black_white_listID);
+        if (current == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        BlackWhiteListEntity toReturn = decoratorService.update(entry, current);
+        return new ResponseEntity<>(toReturn, HttpStatus.OK);
     }
 
 

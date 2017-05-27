@@ -12,6 +12,7 @@ public interface DecoratorService {
     boolean exists(BlackWhiteListEntity blackwhite);
     BlackWhiteListEntity update(BlackWhiteListEntity entry, BlackWhiteListEntity persisted);
     List<BlackWhiteListEntity> findAllByLckScbId(Long id);
+    BlackWhiteListEntity findByBwlIdAndBwlScbId(Long subscriberID, Long black_white_listID);
 
 }
 

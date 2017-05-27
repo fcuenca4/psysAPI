@@ -51,8 +51,8 @@ public class SubscriberServiceImp implements SubscriberService {
     }
 
     @Override
-    public SubscriberEntity getOneByScbDn(Long scbDn) {
-        return repository.findByScbDn(scbDn);
+    public List<SubscriberEntity> getAllByScbDn(Long scbDn) {
+        return repository.findAllByScbDn(scbDn);
     }
 
     private SubscriberEntity updateModelData(SubscriberEntity entry, SubscriberEntity persisted) {
