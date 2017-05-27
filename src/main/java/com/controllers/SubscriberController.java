@@ -1,10 +1,11 @@
 package com.controllers;
 
 import com.models.*;
-import com.services.CallHuntingService;
-import com.services.DecoratorService;
-import com.services.LockedNumberService;
-import com.services.SubscriberService;
+import com.controllers.Modules.subscriberModule;
+import com.controllers.Modules.lockedNumberModule;
+import com.controllers.Modules.decoratorModule;
+import com.controllers.Modules.callHuntingModule;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,183 +20,114 @@ import java.util.List;
 public class SubscriberController {
 
     @Autowired
-    private SubscriberService subscriberService;
+    private subscriberModule subscriberModule;
     @Autowired
-    private CallHuntingService callHuntingService;
+    private lockedNumberModule lockedNumberModule;
     @Autowired
-    private DecoratorService decoratorService;
+    private decoratorModule decoratorModule;
     @Autowired
-    private LockedNumberService lockedNumberService;
+    private callHuntingModule callHuntingModule;
+
+
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<ResponseDATA<List<SubscriberEntity>>> getAllSubscribers() {
-        List<SubscriberEntity> subscribers = subscriberService.getAll();
-        return new ResponseEntity<>(new ResponseDATA<>(subscribers, subscribers.size()), HttpStatus.OK);
+
+        return subscriberModule.getAll(null);
     }
     @RequestMapping(value = "/dn/{id}", method = RequestMethod.GET)
     public ResponseEntity<ResponseDATA<List<SubscriberEntity>>> getSubscriberByScbDn(@PathVariable("id") Long ScbDn) {
-        List<SubscriberEntity> toReturn = subscriberService.getAllByScbDn(ScbDn);
-        if (toReturn != null)
-            return new ResponseEntity<>(new ResponseDATA<>(toReturn,toReturn.size()), HttpStatus.OK);
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return subscriberModule.getSubscriberByScbDn(ScbDn);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<SubscriberEntity> createSubscriber(@RequestBody SubscriberEntity subscriber) {
-        if (subscriber.getScbId() != 0 && subscriberService.exists(subscriber))
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        SubscriberEntity toReturn = subscriberService.create(subscriber);
-        return new ResponseEntity<>(toReturn, HttpStatus.CREATED);
+        return subscriberModule.create(subscriber);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteSubscriber(@PathVariable("id") Long id) {
-        subscriberService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return subscriberModule.delete(id,null);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SubscriberEntity> getSubscriber(@PathVariable("id") Long id) {
-        SubscriberEntity toReturn = subscriberService.getOne(id);
-        if (toReturn != null)
-            return new ResponseEntity<>(toReturn, HttpStatus.OK);
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return subscriberModule.getOne(id,null);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<SubscriberEntity> updateSubscriber(@PathVariable("id") long id, @RequestBody SubscriberEntity entry) {
-        SubscriberEntity current = subscriberService.getOne(id);
-        if (current == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        SubscriberEntity toReturn = subscriberService.update(entry, current);
-        return new ResponseEntity<>(toReturn, HttpStatus.OK);
+        return subscriberModule.update(id,entry);
     }
 
     @RequestMapping(value = "/{id}/lockedNumber", method = RequestMethod.GET)
     public ResponseEntity<ResponseDATA<List<LockedNumberEntity>>> getLockedNumberList(@PathVariable("id") long id) {
-        SubscriberEntity subscriber = subscriberService.getOne(id);
-        List<LockedNumberEntity> toRet = lockedNumberService.findAllByLckScbId(id);
-        if (subscriber != null)
-            return new ResponseEntity<>(new ResponseDATA<>(toRet, toRet.size()), HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return lockedNumberModule.getAll(id);
     }
 
     @RequestMapping(value = "/{id}/lockedNumber/{lockedNumberID}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteLockedNumber(@PathVariable("id") Long id, @PathVariable("lockedNumberID") Long lockedNumberID) {
-        LockedNumberEntity toRet = lockedNumberService.findByLckIdAndLckScbId(id, lockedNumberID);
-        if (toRet != null)
-            lockedNumberService.delete(toRet.getLckId());
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return lockedNumberModule.delete(id,lockedNumberID);
     }
     @RequestMapping(value = "/{id}/lockedNumber/", method = RequestMethod.POST)
     public ResponseEntity<LockedNumberEntity> createLockedNumber(@RequestBody LockedNumberEntity lockedNumber) {
-        if (lockedNumberService.exists(lockedNumber))
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        LockedNumberEntity toReturn = lockedNumberService.create(lockedNumber);
-        return new ResponseEntity<>(toReturn, HttpStatus.CREATED);
+    return lockedNumberModule.create(lockedNumber);
     }
 
     @RequestMapping(value = "/{id}/lockedNumber/{lockedNumberID}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<LockedNumberEntity> getLockedNumber(@PathVariable("id") Long subscriberID, @PathVariable("lockedNumberID") Long lockedNumberID) {
-        LockedNumberEntity toRet = lockedNumberService.findByLckIdAndLckScbId(subscriberID, lockedNumberID);
-        if (toRet != null)
-            return new ResponseEntity<>(toRet, HttpStatus.OK);
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return lockedNumberModule.getOne(subscriberID,lockedNumberID);
     }
     @RequestMapping(value = "/{id}/lockedNumber/{lockedNumberID}", method = RequestMethod.PUT)
     public ResponseEntity<LockedNumberEntity> updateLockedNumber(@PathVariable("lockedNumberID") long lockedNumberID, @RequestBody LockedNumberEntity entry) {
-        LockedNumberEntity current = lockedNumberService.getOne(lockedNumberID);
-        if (current == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        LockedNumberEntity toReturn = lockedNumberService.update(entry, current);
-        return new ResponseEntity<>(toReturn, HttpStatus.OK);
+        return lockedNumberModule.update(lockedNumberID,entry);
     }
 
     @RequestMapping(value = "/{id}/call_hunting", method = RequestMethod.GET)
     public ResponseEntity<ResponseDATA<List<CallHuntingEntity>>> getCallHuntingList(@PathVariable("id") long id) {
-        CallHuntingEntity subscriber = callHuntingService.getOne(id);
-        List<CallHuntingEntity> toRet = callHuntingService.findAllByLckScbId(id);
-        if (subscriber != null)
-            return new ResponseEntity<>(new ResponseDATA<>(toRet, toRet.size()), HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    return callHuntingModule.getAll(id);
     }
 
     @RequestMapping(value = "/{id}/call_hunting/{call_huntingID}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteCallHunting(@PathVariable("id") Long id, @PathVariable("call_huntingID") Long call_huntingID) {
-        CallHuntingEntity toRet = callHuntingService.findByChtIdAndChtScbId(id, call_huntingID);
-        if (toRet != null)
-            callHuntingService.delete(toRet.getChtId());
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return callHuntingModule.delete(id,call_huntingID);
     }
     @RequestMapping(value = "/{id}/call_hunting/", method = RequestMethod.POST)
     public ResponseEntity<CallHuntingEntity> createCallHunting(@RequestBody CallHuntingEntity call_hunting) {
-        if (callHuntingService.exists(call_hunting))
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        CallHuntingEntity toReturn = callHuntingService.create(call_hunting);
-        return new ResponseEntity<>(toReturn, HttpStatus.CREATED);
+        return callHuntingModule.create(call_hunting);
+
     }
 
     @RequestMapping(value = "/{id}/call_hunting/{call_huntingID}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CallHuntingEntity> getCallHunting(@PathVariable("id") Long subscriberID, @PathVariable("call_huntingID") Long call_huntingID) {
-        CallHuntingEntity toRet = callHuntingService.findByChtIdAndChtScbId(subscriberID, call_huntingID);
-        if (toRet != null)
-            return new ResponseEntity<>(toRet, HttpStatus.OK);
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return callHuntingModule.getOne(subscriberID,call_huntingID);
+
     }
     @RequestMapping(value = "/{id}/call_hunting/{call_huntingID}", method = RequestMethod.PUT)
     public ResponseEntity<CallHuntingEntity> updateCallHunting(@PathVariable("call_huntingID") long call_huntingID, @RequestBody CallHuntingEntity entry) {
-        CallHuntingEntity current = callHuntingService.getOne(call_huntingID);
-        if (current == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        CallHuntingEntity toReturn = callHuntingService.update(entry, current);
-        return new ResponseEntity<>(toReturn, HttpStatus.OK);
+        return callHuntingModule.update(call_huntingID,entry);
+
     }
     @RequestMapping(value = "/{id}/black_white_list", method = RequestMethod.GET)
     public ResponseEntity<ResponseDATA<List<BlackWhiteListEntity>>> getBlackWhiteList(@PathVariable("id") long id) {
-        SubscriberEntity subscriber = subscriberService.getOne(id);
-        List<BlackWhiteListEntity> toRet = decoratorService.findAllByLckScbId(id);
-        if (subscriber != null)
-            return new ResponseEntity<>(new ResponseDATA<>(toRet, toRet.size()), HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    return decoratorModule.getAll(id);
     }
     @RequestMapping(value = "/{id}/black_white_list/{black_white_listID}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteBlackWhiteList(@PathVariable("id") Long id, @PathVariable("black_white_listID") Long black_white_listID) {
-        BlackWhiteListEntity toRet = decoratorService.findByBwlIdAndBwlScbId(id, black_white_listID);
-        if (toRet != null)
-            decoratorService.delete(toRet.getBwlId());
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return decoratorModule.delete(id,black_white_listID);
     }
     @RequestMapping(value = "/{id}/black_white_list/", method = RequestMethod.POST)
     public ResponseEntity<BlackWhiteListEntity> createBlackWhiteList(@RequestBody BlackWhiteListEntity black_white_list) {
-        if (decoratorService.exists(black_white_list))
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        BlackWhiteListEntity toReturn = decoratorService.create(black_white_list);
-        return new ResponseEntity<>(toReturn, HttpStatus.CREATED);
+        return decoratorModule.create(black_white_list);
     }
 
     @RequestMapping(value = "/{id}/black_white_list/{black_white_listID}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BlackWhiteListEntity> getBlackWhiteList(@PathVariable("id") Long subscriberID, @PathVariable("black_white_listID") Long black_white_listID) {
-        BlackWhiteListEntity toRet = decoratorService.findByBwlIdAndBwlScbId(subscriberID, black_white_listID);
-        if (toRet != null)
-            return new ResponseEntity<>(toRet, HttpStatus.OK);
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return decoratorModule.getOne(subscriberID,black_white_listID);
     }
     @RequestMapping(value = "/{id}/black_white_list/{black_white_listID}", method = RequestMethod.PUT)
     public ResponseEntity<BlackWhiteListEntity> updateBlackWhiteList(@PathVariable("black_white_listID") long black_white_listID, @RequestBody BlackWhiteListEntity entry) {
-        BlackWhiteListEntity current = decoratorService.getOne(black_white_listID);
-        if (current == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        BlackWhiteListEntity toReturn = decoratorService.update(entry, current);
-        return new ResponseEntity<>(toReturn, HttpStatus.OK);
+        return decoratorModule.update(black_white_listID,entry);
     }
 
 
