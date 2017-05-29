@@ -1,12 +1,13 @@
-package com.controllers.Modules;
+package com.controllers.crud;
 
 import com.models.BlackWhiteListEntity;
-import com.models.ResponseDATA;
+import com.controllers.util.ResponseDATA;
 import com.models.SubscriberEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Component
@@ -14,14 +15,33 @@ public class decoratorModule extends baseModule<BlackWhiteListEntity> {
     @Override
     public ResponseEntity<ResponseDATA<List<BlackWhiteListEntity>>> getAll(Long id) {
         SubscriberEntity subscriber = subscriberService.getOne(id);
-        List<BlackWhiteListEntity> toRet = decoratorService.findAllByLckScbId(id);
-        if (subscriber != null)
-            return new ResponseEntity<>(new ResponseDATA<>(toRet, toRet.size()), HttpStatus.OK);
+        if (subscriber != null) {
+
+            List<BlackWhiteListEntity> toRet = decoratorService.findAllByLckScbId(id);
+            if (subscriber != null)
+                return new ResponseEntity<>(new ResponseDATA<>(toRet, toRet.size()), HttpStatus.OK);
+        }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    public ResponseEntity<ResponseDATA<List<BlackWhiteListEntity>>> create(List<BlackWhiteListEntity> entity) {
+        boolean _CONFLICT = false;
+        List<BlackWhiteListEntity> toReturn = new LinkedList<>();
+        if (!entity.isEmpty()) {
+            for (BlackWhiteListEntity e : entity) {
+                if (e.getBwlId() != 0 && decoratorService.exists(e))
+                    _CONFLICT = true;
+                else
+                    toReturn.add(decoratorService.create(e));
+            }
+        }
+        if (_CONFLICT)
+            return new ResponseEntity<>(new ResponseDATA<>(toReturn, toReturn.size()), HttpStatus.CONFLICT);
+        return new ResponseEntity<>(new ResponseDATA<>(toReturn, toReturn.size()), HttpStatus.CREATED);
+    }
+
     @Override
-    public ResponseEntity<BlackWhiteListEntity> create(BlackWhiteListEntity entity) {
+    public ResponseEntity<BlackWhiteListEntity> createOne(BlackWhiteListEntity entity) {
         if (decoratorService.exists(entity))
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         BlackWhiteListEntity toReturn = decoratorService.create(entity);
@@ -29,10 +49,12 @@ public class decoratorModule extends baseModule<BlackWhiteListEntity> {
     }
 
     @Override
-    public ResponseEntity<Void> delete(Long id, Long black_white_listID) {
-        BlackWhiteListEntity toRet = decoratorService.findByBwlIdAndBwlScbId(id, black_white_listID);
-        if (toRet != null)
-            decoratorService.delete(toRet.getBwlId());
+    public ResponseEntity<Void> delete(List<Long> idList, Long lockedNumberID) {
+        for (Long id : idList) {
+            BlackWhiteListEntity toRet = decoratorService.findByBwlIdAndBwlScbId(id, lockedNumberID);
+            if (toRet != null)
+                decoratorService.delete(toRet.getBwlId());
+        }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

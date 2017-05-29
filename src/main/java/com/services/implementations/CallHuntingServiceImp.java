@@ -1,4 +1,5 @@
 package com.services.implementations;
+
 import com.models.CallHuntingEntity;
 import com.repositories.CallHuntingRepository;
 import com.services.CallHuntingService;
@@ -13,31 +14,36 @@ public class CallHuntingServiceImp implements CallHuntingService {
 
     @Autowired
     CallHuntingRepository repository;
+
     @Override
-    public List<CallHuntingEntity> getAll(){
+    public List<CallHuntingEntity> getAll() {
         return repository.findAll();
     }
 
     @Override
     public CallHuntingEntity getOne(Long id) {
-        if(!repository.exists(id))
+        if (!repository.exists(id))
             throw new EntityNotFoundException("CallHunting not found");
         return repository.findOne(id);
     }
 
     @Override
     public void delete(Long id) {
-        if(!repository.exists(id))
+        if (!repository.exists(id))
             throw new EntityNotFoundException("CallHunting not found");
         repository.delete(id);
     }
 
     @Override
     public CallHuntingEntity create(CallHuntingEntity callhunting) {
-        return repository.save(callhunting);
+        if (!this.exists(callhunting))
+            return repository.save(callhunting);
+        else return null;
     }
 
     @Override
+    //TODO INSERT REPEATED ENTRY
+
     public boolean exists(CallHuntingEntity callHunting) {
         return repository.exists(callHunting.getChtId());
     }
@@ -58,6 +64,6 @@ public class CallHuntingServiceImp implements CallHuntingService {
 
     @Override
     public CallHuntingEntity findByChtIdAndChtScbId(Long id, Long call_huntingID) {
-        return repository.findByChtIdAndChtScbId(id,call_huntingID);
+        return repository.findByChtIdAndChtScbId(id, call_huntingID);
     }
 }

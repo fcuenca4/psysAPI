@@ -1,4 +1,5 @@
 package com.services.implementations;
+
 import com.models.LockedNumberEntity;
 import com.repositories.LockedNumberRepository;
 import com.services.LockedNumberService;
@@ -13,33 +14,37 @@ public class LockedNumberServiceImp implements LockedNumberService {
 
     @Autowired
     LockedNumberRepository repository;
+
     @Override
-    public List<LockedNumberEntity> getAll(){
+    public List<LockedNumberEntity> getAll() {
         return repository.findAll();
     }
 
     @Override
     public LockedNumberEntity getOne(Long id) {
-        if(!repository.exists(id))
-            throw new EntityNotFoundException("LockedNumber not found");
+        if (!repository.exists(id))
+            return null;
         return repository.findOne(id);
     }
 
     @Override
     public void delete(Long id) {
-        if(!repository.exists(id))
+        if (!repository.exists(id))
             throw new EntityNotFoundException("LockedNumber not found");
         repository.delete(id);
     }
 
     @Override
     public LockedNumberEntity create(LockedNumberEntity lockedNumber) {
-
-        return repository.save(lockedNumber);
+        if (!this.exists(lockedNumber))
+            return repository.save(lockedNumber);
+        else return null;
     }
 
     @Override
+    //TODO INSERT REPEATED ENTRY
     public boolean exists(LockedNumberEntity lockedNumber) {
+
         return repository.exists(lockedNumber.getLckId());
     }
 
@@ -56,7 +61,7 @@ public class LockedNumberServiceImp implements LockedNumberService {
 
     @Override
     public LockedNumberEntity findByLckIdAndLckScbId(Long LckId, Long ScbId) {
-        return repository.findByLckIdAndLckScbId(LckId,ScbId);
+        return repository.findByLckIdAndLckScbId(LckId, ScbId);
     }
 
 

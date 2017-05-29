@@ -1,7 +1,6 @@
-package com.controllers.Modules;
+package com.controllers.crud;
 
-import com.models.ResponseDATA;
-import com.models.SubscriberEntity;
+import com.controllers.util.ResponseDATA;
 import com.services.CallHuntingService;
 import com.services.DecoratorService;
 import com.services.LockedNumberService;
@@ -21,10 +20,13 @@ public abstract class baseModule<T> {
     @Autowired
     protected LockedNumberService lockedNumberService;
 
-    public abstract ResponseEntity<ResponseDATA<List<T>>> getAll(Long id);
-    public abstract ResponseEntity<T> create(T entity);
-    public abstract ResponseEntity<Void> delete(Long id, Long extraID);
-    public abstract ResponseEntity<T> getOne(Long id, Long extraID);
+
+
+    public abstract ResponseEntity<ResponseDATA<List<T>>> getAll(Long subscriberID);
+    public abstract ResponseEntity<ResponseDATA<List<T>>> create(List<T> entity);
+    public abstract ResponseEntity<T> createOne(T entity) ;
+    public abstract ResponseEntity<Void> delete(List<Long> id, Long subscriberID);
+    public abstract ResponseEntity<T> getOne(Long id, Long subscriberID);
     public abstract ResponseEntity<T> update(Long id, T entity);
 
 }

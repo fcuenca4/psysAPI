@@ -36,10 +36,13 @@ public class DecoratorServiceImp implements DecoratorService {
 
     @Override
     public BlackWhiteListEntity create(BlackWhiteListEntity decorator) {
-        return repository.save(decorator);
+        if (!this.exists(decorator))
+            return repository.save(decorator);
+        return null;
     }
 
     @Override
+    //TODO INSERT REPEATED ENTRY
     public boolean exists(BlackWhiteListEntity blackwhite) {
         return repository.exists(blackwhite.getBwlId());
     }
@@ -57,7 +60,7 @@ public class DecoratorServiceImp implements DecoratorService {
 
     @Override
     public BlackWhiteListEntity findByBwlIdAndBwlScbId(Long subscriberID, Long black_white_listID) {
-        return repository.findByBwlIdAndBwlScbId(subscriberID,black_white_listID);
+        return repository.findByBwlIdAndBwlScbId(subscriberID, black_white_listID);
     }
 
     private BlackWhiteListEntity updateModelData(BlackWhiteListEntity entry, BlackWhiteListEntity persisted) {

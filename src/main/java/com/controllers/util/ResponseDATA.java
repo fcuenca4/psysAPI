@@ -1,4 +1,4 @@
-package com.models;
+package com.controllers.util;
 
 
 public class ResponseDATA<T> {

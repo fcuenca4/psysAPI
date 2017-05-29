@@ -18,11 +18,11 @@ public class LockedNumberController {
     @Autowired
     private LockedNumberService service;
 
-//    @RequestMapping(value = "", method = RequestMethod.GET)
-//    public ResponseEntity<List<LockedNumberEntity>> getAll() {
-//        List<LockedNumberEntity> lockedNumbers = service.getAll();
-//        return new ResponseEntity<>(lockedNumbers, HttpStatus.OK);
-//    }
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public ResponseEntity<List<LockedNumberEntity>> getAll() {
+        List<LockedNumberEntity> lockedNumbers = service.getAll();
+        return new ResponseEntity<>(lockedNumbers, HttpStatus.OK);
+    }
 //
 //    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 //    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {

@@ -4,6 +4,7 @@ import com.models.SubscriberEntity;
 import com.repositories.SubscriberRepository;
 import com.services.SubscriberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -29,19 +30,28 @@ public class SubscriberServiceImp implements SubscriberService {
 
     @Override
     public void delete(Long id) {
-        if (!repository.exists(id))
-            throw new EntityNotFoundException("Subscriber not found");
-        repository.delete(id);
+        try{
+            repository.delete(id);
+        }catch(EmptyResultDataAccessException e){
+
+        }
     }
 
     @Override
     public SubscriberEntity create(SubscriberEntity subscriber) {
-        return repository.save(subscriber);
+        if (!this.exists(subscriber))
+            return repository.save(subscriber);
+        else
+            return null;
     }
 
     @Override
     public boolean exists(SubscriberEntity subscriber) {
-        return repository.exists(subscriber.getScbId());
+        return repository.exists(subscriber.getScbId()) || this.existsDN(subscriber);
+    }
+
+    private boolean existsDN(SubscriberEntity subscriber) {
+        return (repository.findFirstByScbDn(subscriber.getScbDn())!=null);
     }
 
     @Override

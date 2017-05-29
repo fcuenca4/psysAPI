@@ -9,6 +9,7 @@ public interface SubscriberService {
      void delete(Long id);
      SubscriberEntity create(SubscriberEntity subscriber);
      boolean exists(SubscriberEntity subscriber);
+     //boolean existsDN(SubscriberEntity subscriber);
      SubscriberEntity update(SubscriberEntity entry, SubscriberEntity persisted);
      List<SubscriberEntity> getAllByScbDn(Long scbDn);
 }

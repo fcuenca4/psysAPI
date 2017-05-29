@@ -15,5 +15,7 @@ public interface LockedNumberRepository extends JpaRepository<LockedNumberEntity
     List<LockedNumberEntity> findAllByLckScbId(Long id);
     @Query("SELECT p FROM LockedNumberEntity p WHERE p.lckId = :lckId AND p.lckScbId = :ScbId")
     LockedNumberEntity findByLckIdAndLckScbId(@Param("ScbId") Long ScbId, @Param("lckId")Long lckId);
+    LockedNumberEntity findFirstByLckDn(Long LckDn);
+
 }
 

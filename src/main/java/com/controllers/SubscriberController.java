@@ -1,13 +1,13 @@
 package com.controllers;
 
+import com.controllers.util.ResponseDATA;
 import com.models.*;
-import com.controllers.Modules.subscriberModule;
-import com.controllers.Modules.lockedNumberModule;
-import com.controllers.Modules.decoratorModule;
-import com.controllers.Modules.callHuntingModule;
+import com.controllers.crud.subscriberModule;
+import com.controllers.crud.lockedNumberModule;
+import com.controllers.crud.decoratorModule;
+import com.controllers.crud.callHuntingModule;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +35,9 @@ public class SubscriberController {
 
         return subscriberModule.getAll(null);
     }
+    /*
+    * TODO: VER FILTROS
+    * */
     @RequestMapping(value = "/dn/{id}", method = RequestMethod.GET)
     public ResponseEntity<ResponseDATA<List<SubscriberEntity>>> getSubscriberByScbDn(@PathVariable("id") Long ScbDn) {
         return subscriberModule.getSubscriberByScbDn(ScbDn);
@@ -42,12 +45,12 @@ public class SubscriberController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<SubscriberEntity> createSubscriber(@RequestBody SubscriberEntity subscriber) {
-        return subscriberModule.create(subscriber);
+        return subscriberModule.createOne(subscriber);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> deleteSubscriber(@PathVariable("id") Long id) {
-        return subscriberModule.delete(id,null);
+    @RequestMapping(value = "/", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteSubscriber(@RequestBody List<Long> subscriberDELETEList) {
+        return subscriberModule.delete(subscriberDELETEList,null);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -65,13 +68,13 @@ public class SubscriberController {
         return lockedNumberModule.getAll(id);
     }
 
-    @RequestMapping(value = "/{id}/lockedNumber/{lockedNumberID}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> deleteLockedNumber(@PathVariable("id") Long id, @PathVariable("lockedNumberID") Long lockedNumberID) {
-        return lockedNumberModule.delete(id,lockedNumberID);
+    @RequestMapping(value = "/{id}/lockedNumber/", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteLockedNumber(@PathVariable("id") Long subscriberId, @RequestBody List<Long> lockedNumberDELETEList) {
+        return lockedNumberModule.delete(lockedNumberDELETEList,subscriberId);
     }
     @RequestMapping(value = "/{id}/lockedNumber/", method = RequestMethod.POST)
-    public ResponseEntity<LockedNumberEntity> createLockedNumber(@RequestBody LockedNumberEntity lockedNumber) {
-    return lockedNumberModule.create(lockedNumber);
+    public ResponseEntity<ResponseDATA<List<LockedNumberEntity>>> createLockedNumber(@RequestBody List<LockedNumberEntity> lockedNumberCREATEList) {
+    return lockedNumberModule.create(lockedNumberCREATEList);
     }
 
     @RequestMapping(value = "/{id}/lockedNumber/{lockedNumberID}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -88,13 +91,13 @@ public class SubscriberController {
     return callHuntingModule.getAll(id);
     }
 
-    @RequestMapping(value = "/{id}/call_hunting/{call_huntingID}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> deleteCallHunting(@PathVariable("id") Long id, @PathVariable("call_huntingID") Long call_huntingID) {
-        return callHuntingModule.delete(id,call_huntingID);
+    @RequestMapping(value = "/{id}/call_hunting/", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteCallHunting(@PathVariable("id") Long subscriberID, @RequestBody List<Long> callHuntingDELETEList) {
+        return callHuntingModule.delete(callHuntingDELETEList,subscriberID);
     }
     @RequestMapping(value = "/{id}/call_hunting/", method = RequestMethod.POST)
-    public ResponseEntity<CallHuntingEntity> createCallHunting(@RequestBody CallHuntingEntity call_hunting) {
-        return callHuntingModule.create(call_hunting);
+    public ResponseEntity<ResponseDATA<List<CallHuntingEntity>>> createCallHunting(@RequestBody List<CallHuntingEntity> call_huntingCREATEList) {
+        return callHuntingModule.create(call_huntingCREATEList);
 
     }
 
@@ -112,13 +115,13 @@ public class SubscriberController {
     public ResponseEntity<ResponseDATA<List<BlackWhiteListEntity>>> getBlackWhiteList(@PathVariable("id") long id) {
     return decoratorModule.getAll(id);
     }
-    @RequestMapping(value = "/{id}/black_white_list/{black_white_listID}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> deleteBlackWhiteList(@PathVariable("id") Long id, @PathVariable("black_white_listID") Long black_white_listID) {
-        return decoratorModule.delete(id,black_white_listID);
+    @RequestMapping(value = "/{id}/black_white_list/", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteBlackWhiteList(@PathVariable("id") Long subscriberID, @RequestBody List<Long> blackWhiteDELETEList) {
+        return decoratorModule.delete(blackWhiteDELETEList,subscriberID);
     }
     @RequestMapping(value = "/{id}/black_white_list/", method = RequestMethod.POST)
-    public ResponseEntity<BlackWhiteListEntity> createBlackWhiteList(@RequestBody BlackWhiteListEntity black_white_list) {
-        return decoratorModule.create(black_white_list);
+    public ResponseEntity<ResponseDATA<List<BlackWhiteListEntity>>> createBlackWhiteList(@RequestBody List<BlackWhiteListEntity> black_white_listCREATEList) {
+        return decoratorModule.create(black_white_listCREATEList);
     }
 
     @RequestMapping(value = "/{id}/black_white_list/{black_white_listID}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
