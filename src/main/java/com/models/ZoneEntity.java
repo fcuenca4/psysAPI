@@ -14,7 +14,14 @@ public class ZoneEntity {
     private String zoneDescription;
     private Timestamp zoneLastUpdateUtc;
 
+    @SequenceGenerator(
+            allocationSize = 1,
+            name = "course_seq",
+            sequenceName = "SEQ_PPS_ZONE_ID"
+    )
     @Id
+    @GeneratedValue(generator = "course_seq")
+
     @Column(name = "ZONE_ID", nullable = false, precision = 0)
     public long getZoneId() {
         return zoneId;
@@ -65,10 +72,7 @@ public class ZoneEntity {
         if (zoneName != null ? !zoneName.equals(that.zoneName) : that.zoneName != null) return false;
         if (zoneDescription != null ? !zoneDescription.equals(that.zoneDescription) : that.zoneDescription != null)
             return false;
-        if (zoneLastUpdateUtc != null ? !zoneLastUpdateUtc.equals(that.zoneLastUpdateUtc) : that.zoneLastUpdateUtc != null)
-            return false;
-
-        return true;
+        return zoneLastUpdateUtc != null ? zoneLastUpdateUtc.equals(that.zoneLastUpdateUtc) : that.zoneLastUpdateUtc == null;
     }
 
     @Override

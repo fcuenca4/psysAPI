@@ -14,6 +14,13 @@ public class ServiceClassItemEntity {
     private Long sciSitemId;
     private Timestamp sciLastUpdateUtc;
 
+    @SequenceGenerator(
+            allocationSize = 1,
+            name = "course_seq",
+            sequenceName = "SEQ_PPS_SCI_ID"
+    )
+    @GeneratedValue(generator = "course_seq")
+
     @Id
     @Column(name = "SCI_ID", nullable = false, precision = 0)
     public long getSciId() {
@@ -64,10 +71,7 @@ public class ServiceClassItemEntity {
         if (sciId != that.sciId) return false;
         if (sciSclassId != null ? !sciSclassId.equals(that.sciSclassId) : that.sciSclassId != null) return false;
         if (sciSitemId != null ? !sciSitemId.equals(that.sciSitemId) : that.sciSitemId != null) return false;
-        if (sciLastUpdateUtc != null ? !sciLastUpdateUtc.equals(that.sciLastUpdateUtc) : that.sciLastUpdateUtc != null)
-            return false;
-
-        return true;
+        return sciLastUpdateUtc != null ? sciLastUpdateUtc.equals(that.sciLastUpdateUtc) : that.sciLastUpdateUtc == null;
     }
 
     @Override

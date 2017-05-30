@@ -1,7 +1,7 @@
 package com.controllers.crud;
 
-import com.models.BlackWhiteListEntity;
 import com.controllers.util.ResponseDATA;
+import com.models.BlackWhiteListEntity;
 import com.models.SubscriberEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,12 +24,13 @@ public class decoratorModule extends baseModule<BlackWhiteListEntity> {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @Deprecated
     public ResponseEntity<ResponseDATA<List<BlackWhiteListEntity>>> create(List<BlackWhiteListEntity> entity) {
         boolean _CONFLICT = false;
         List<BlackWhiteListEntity> toReturn = new LinkedList<>();
         if (!entity.isEmpty()) {
             for (BlackWhiteListEntity e : entity) {
-                if (e.getBwlId() != 0 && decoratorService.exists(e))
+                if (decoratorService.exists(e))
                     _CONFLICT = true;
                 else
                     toReturn.add(decoratorService.create(e));

@@ -14,6 +14,13 @@ public class ServiceItemEntity {
     private String sitemDescription;
     private Timestamp sitemLastUpdateUtc;
 
+    @SequenceGenerator(
+            allocationSize = 1,
+            name = "course_seq",
+            sequenceName = "SEQ_PPS_SITEM_ID"
+    )
+    @GeneratedValue(generator = "course_seq")
+
     @Id
     @Column(name = "SITEM_ID", nullable = false, precision = 0)
     public long getSitemId() {
@@ -65,10 +72,7 @@ public class ServiceItemEntity {
         if (sitemName != null ? !sitemName.equals(that.sitemName) : that.sitemName != null) return false;
         if (sitemDescription != null ? !sitemDescription.equals(that.sitemDescription) : that.sitemDescription != null)
             return false;
-        if (sitemLastUpdateUtc != null ? !sitemLastUpdateUtc.equals(that.sitemLastUpdateUtc) : that.sitemLastUpdateUtc != null)
-            return false;
-
-        return true;
+        return sitemLastUpdateUtc != null ? sitemLastUpdateUtc.equals(that.sitemLastUpdateUtc) : that.sitemLastUpdateUtc == null;
     }
 
     @Override

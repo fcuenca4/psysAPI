@@ -44,7 +44,7 @@ public class DecoratorServiceImp implements DecoratorService {
     @Override
     //TODO INSERT REPEATED ENTRY
     public boolean exists(BlackWhiteListEntity blackwhite) {
-        return repository.exists(blackwhite.getBwlId());
+        return false;
     }
 
     @Override

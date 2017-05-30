@@ -28,13 +28,14 @@ public class subscriberModule extends baseModule<SubscriberEntity> {
         return new ResponseEntity<>(new ResponseDATA<>(subscribers, subscribers.size()), HttpStatus.OK);
     }
 
+    @Deprecated
     @Override
     public ResponseEntity<ResponseDATA<List<SubscriberEntity>>> create(List<SubscriberEntity> entity) {
         boolean _CONFLICT = false;
         List<SubscriberEntity> toReturn = new LinkedList<>();
         if (!entity.isEmpty()) {
             for (SubscriberEntity e : entity) {
-                if (e.getScbId() != 0 && subscriberService.exists(e))
+                if (subscriberService.exists(e))
                     _CONFLICT = true;
                 else
                     toReturn.add(subscriberService.create(e));
@@ -48,7 +49,7 @@ public class subscriberModule extends baseModule<SubscriberEntity> {
 
     @Override
     public ResponseEntity<SubscriberEntity> createOne(SubscriberEntity entity) {
-        if (entity.getScbId() != 0 && subscriberService.exists(entity))
+        if (subscriberService.exists(entity))
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         SubscriberEntity toReturn = subscriberService.create(entity);
         return new ResponseEntity<>(toReturn, HttpStatus.CREATED);

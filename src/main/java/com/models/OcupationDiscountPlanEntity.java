@@ -18,6 +18,13 @@ public class OcupationDiscountPlanEntity {
     private Long hzodpDiscountPercentage;
     private Timestamp hzodpLastUpdateUtc;
 
+    @SequenceGenerator(
+            allocationSize = 1,
+            name = "course_seq",
+            sequenceName = "SEQ_PPS_HZODP_ID"
+    )
+    @GeneratedValue(generator = "course_seq")
+
     @Id
     @Column(name = "HZODP_ID", nullable = false, precision = 0)
     public long getHzodpId() {
@@ -114,10 +121,7 @@ public class OcupationDiscountPlanEntity {
         if (hzodpMaxOcup != null ? !hzodpMaxOcup.equals(that.hzodpMaxOcup) : that.hzodpMaxOcup != null) return false;
         if (hzodpDiscountPercentage != null ? !hzodpDiscountPercentage.equals(that.hzodpDiscountPercentage) : that.hzodpDiscountPercentage != null)
             return false;
-        if (hzodpLastUpdateUtc != null ? !hzodpLastUpdateUtc.equals(that.hzodpLastUpdateUtc) : that.hzodpLastUpdateUtc != null)
-            return false;
-
-        return true;
+        return hzodpLastUpdateUtc != null ? hzodpLastUpdateUtc.equals(that.hzodpLastUpdateUtc) : that.hzodpLastUpdateUtc == null;
     }
 
     @Override

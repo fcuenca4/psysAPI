@@ -17,6 +17,12 @@ public class CellsEntity {
     private Long cellRadius;
     private Timestamp cellLastUpdateUtc;
 
+    @SequenceGenerator(
+            allocationSize = 1,
+            name = "course_seq",
+            sequenceName = "SEQ_PPS_CELL_ID"
+    )
+    @GeneratedValue(generator = "course_seq")
     @Id
     @Column(name = "CELL_ID", nullable = false, precision = 0)
     public long getCellId() {
@@ -101,10 +107,7 @@ public class CellsEntity {
         if (cellLongitude != null ? !cellLongitude.equals(that.cellLongitude) : that.cellLongitude != null)
             return false;
         if (cellRadius != null ? !cellRadius.equals(that.cellRadius) : that.cellRadius != null) return false;
-        if (cellLastUpdateUtc != null ? !cellLastUpdateUtc.equals(that.cellLastUpdateUtc) : that.cellLastUpdateUtc != null)
-            return false;
-
-        return true;
+        return cellLastUpdateUtc != null ? cellLastUpdateUtc.equals(that.cellLastUpdateUtc) : that.cellLastUpdateUtc == null;
     }
 
     @Override

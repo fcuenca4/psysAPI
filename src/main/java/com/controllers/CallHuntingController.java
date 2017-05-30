@@ -41,7 +41,7 @@ public class CallHuntingController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<CallHuntingEntity> create(@RequestBody CallHuntingEntity callHunting) {
-        if (service.exists(callHunting))
+        if (service.exists(callHunting) && callHunting.getChtId() != 0)
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         CallHuntingEntity toReturn = service.create(callHunting);
         return new ResponseEntity<>(toReturn, HttpStatus.CREATED);
@@ -55,7 +55,6 @@ public class CallHuntingController {
         }
         CallHuntingEntity toReturn = service.update(entry, current);
         return new ResponseEntity<>(toReturn, HttpStatus.OK);
-
     }
 }
 

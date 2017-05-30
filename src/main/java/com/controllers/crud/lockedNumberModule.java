@@ -1,7 +1,7 @@
 package com.controllers.crud;
 
-import com.models.LockedNumberEntity;
 import com.controllers.util.ResponseDATA;
+import com.models.LockedNumberEntity;
 import com.models.SubscriberEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,13 +23,14 @@ public class lockedNumberModule extends baseModule<LockedNumberEntity> {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @Deprecated
     @Override
     public ResponseEntity<ResponseDATA<List<LockedNumberEntity>>> create(List<LockedNumberEntity> entity) {
         boolean _CONFLICT = false;
         List<LockedNumberEntity> toReturn = new LinkedList<>();
         if (!entity.isEmpty()) {
             for (LockedNumberEntity e : entity) {
-                if (e.getLckId() != 0 && lockedNumberService.exists(e)) {
+                if (lockedNumberService.exists(e)) {
                     _CONFLICT = true;
                 } else
                     toReturn.add(lockedNumberService.create(e));

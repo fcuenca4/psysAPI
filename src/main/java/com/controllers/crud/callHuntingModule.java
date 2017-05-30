@@ -1,7 +1,7 @@
 package com.controllers.crud;
 
-import com.models.CallHuntingEntity;
 import com.controllers.util.ResponseDATA;
+import com.models.CallHuntingEntity;
 import com.models.SubscriberEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,13 +23,14 @@ public class callHuntingModule extends baseModule<CallHuntingEntity> {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @Deprecated
     @Override
     public ResponseEntity<ResponseDATA<List<CallHuntingEntity>>> create(List<CallHuntingEntity> entity) {
         boolean _CONFLICT = false;
         List<CallHuntingEntity> toReturn = new LinkedList<>();
         if (!entity.isEmpty()) {
             for (CallHuntingEntity e : entity) {
-                if (e.getChtId() != 0 && callHuntingService.exists(e))
+                if (callHuntingService.exists(e))
                     _CONFLICT = true;
                 else
                     toReturn.add(callHuntingService.create(e));

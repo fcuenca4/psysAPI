@@ -15,6 +15,13 @@ public class NeighboringZoneDiscountEntity {
     private Long hznzdDiscountPercentage;
     private Timestamp hznzdLastUpdateUtc;
 
+    @SequenceGenerator(
+            allocationSize = 1,
+            name = "course_seq",
+            sequenceName = "SEQ_PPS_HZNZD_ID"
+    )
+    @GeneratedValue(generator = "course_seq")
+
     @Id
     @Column(name = "HZNZD_ID", nullable = false, precision = 0)
     public long getHznzdId() {
@@ -79,10 +86,7 @@ public class NeighboringZoneDiscountEntity {
             return false;
         if (hznzdDiscountPercentage != null ? !hznzdDiscountPercentage.equals(that.hznzdDiscountPercentage) : that.hznzdDiscountPercentage != null)
             return false;
-        if (hznzdLastUpdateUtc != null ? !hznzdLastUpdateUtc.equals(that.hznzdLastUpdateUtc) : that.hznzdLastUpdateUtc != null)
-            return false;
-
-        return true;
+        return hznzdLastUpdateUtc != null ? hznzdLastUpdateUtc.equals(that.hznzdLastUpdateUtc) : that.hznzdLastUpdateUtc == null;
     }
 
     @Override

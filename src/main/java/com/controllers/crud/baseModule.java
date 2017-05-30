@@ -23,6 +23,8 @@ public abstract class baseModule<T> {
 
 
     public abstract ResponseEntity<ResponseDATA<List<T>>> getAll(Long subscriberID);
+
+    @Deprecated
     public abstract ResponseEntity<ResponseDATA<List<T>>> create(List<T> entity);
     public abstract ResponseEntity<T> createOne(T entity);
     public abstract ResponseEntity<Void> delete(List<Long> id, Long subscriberID);

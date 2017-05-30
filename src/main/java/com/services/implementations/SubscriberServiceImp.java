@@ -29,9 +29,9 @@ public class SubscriberServiceImp implements SubscriberService {
 
     @Override
     public void delete(Long id) {
-        try{
+        try {
             repository.delete(id);
-        }catch(EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
 
         }
     }
@@ -46,11 +46,13 @@ public class SubscriberServiceImp implements SubscriberService {
 
     @Override
     public boolean exists(SubscriberEntity subscriber) {
-        return repository.exists(subscriber.getScbId()) || this.existsDN(subscriber);
+//        return repository.exists(subscriber.getScbId()) || this.existsDN(subscriber);
+        return this.existsDN(subscriber);
+
     }
 
     private boolean existsDN(SubscriberEntity subscriber) {
-        return (repository.findFirstByScbDn(subscriber.getScbDn())!=null);
+        return (repository.findFirstByScbDn(subscriber.getScbDn()) != null);
     }
 
     @Override

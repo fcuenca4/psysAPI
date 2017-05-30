@@ -16,7 +16,14 @@ public class TrafficLoadDiscountEntity {
     private String hztldOcupationDiscountPlan;
     private Timestamp hztldLastUpdateUtc;
 
+    @SequenceGenerator(
+            allocationSize = 1,
+            name = "course_seq",
+            sequenceName = "SEQ_PPS_HZTLD_ID"
+    )
     @Id
+    @GeneratedValue(generator = "course_seq")
+
     @Column(name = "HZTLD_ID", nullable = false, precision = 0)
     public long getHztldId() {
         return hztldId;
@@ -89,10 +96,7 @@ public class TrafficLoadDiscountEntity {
         if (hztldCellId != null ? !hztldCellId.equals(that.hztldCellId) : that.hztldCellId != null) return false;
         if (hztldOcupationDiscountPlan != null ? !hztldOcupationDiscountPlan.equals(that.hztldOcupationDiscountPlan) : that.hztldOcupationDiscountPlan != null)
             return false;
-        if (hztldLastUpdateUtc != null ? !hztldLastUpdateUtc.equals(that.hztldLastUpdateUtc) : that.hztldLastUpdateUtc != null)
-            return false;
-
-        return true;
+        return hztldLastUpdateUtc != null ? hztldLastUpdateUtc.equals(that.hztldLastUpdateUtc) : that.hztldLastUpdateUtc == null;
     }
 
     @Override

@@ -45,7 +45,7 @@ public class CallHuntingServiceImp implements CallHuntingService {
     //TODO INSERT REPEATED ENTRY
 
     public boolean exists(CallHuntingEntity callHunting) {
-        return repository.exists(callHunting.getChtId());
+        return false;
     }
 
     @Override

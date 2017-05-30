@@ -14,7 +14,14 @@ public class ZoneCellEntity {
     private Long zcCellId;
     private Timestamp zcLastUpdateUtc;
 
+    @SequenceGenerator(
+            allocationSize = 1,
+            name = "course_seq",
+            sequenceName = "SEQ_PPS_ZC_ID"
+    )
     @Id
+    @GeneratedValue(generator = "course_seq")
+
     @Column(name = "ZC_ID", nullable = false, precision = 0)
     public long getZcId() {
         return zcId;
@@ -64,10 +71,7 @@ public class ZoneCellEntity {
         if (zcId != that.zcId) return false;
         if (zcZoneId != null ? !zcZoneId.equals(that.zcZoneId) : that.zcZoneId != null) return false;
         if (zcCellId != null ? !zcCellId.equals(that.zcCellId) : that.zcCellId != null) return false;
-        if (zcLastUpdateUtc != null ? !zcLastUpdateUtc.equals(that.zcLastUpdateUtc) : that.zcLastUpdateUtc != null)
-            return false;
-
-        return true;
+        return zcLastUpdateUtc != null ? zcLastUpdateUtc.equals(that.zcLastUpdateUtc) : that.zcLastUpdateUtc == null;
     }
 
     @Override

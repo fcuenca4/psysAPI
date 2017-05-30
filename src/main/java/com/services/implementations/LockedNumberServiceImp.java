@@ -44,8 +44,7 @@ public class LockedNumberServiceImp implements LockedNumberService {
     @Override
     //TODO INSERT REPEATED ENTRY
     public boolean exists(LockedNumberEntity lockedNumber) {
-
-        return repository.exists(lockedNumber.getLckId());
+        return false;
     }
 
     @Override
