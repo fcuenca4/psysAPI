@@ -23,21 +23,21 @@ public class LockedNumberController {
         List<LockedNumberEntity> lockedNumbers = service.getAll();
         return new ResponseEntity<>(lockedNumbers, HttpStatus.OK);
     }
-//
-//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-//    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-//        service.delete(id);
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
-//
-//    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<LockedNumberEntity> read(@PathVariable("id") Long id) {
-//        LockedNumberEntity toReturn = service.getOne(id);
-//        if (toReturn != null)
-//            return new ResponseEntity<>(toReturn, HttpStatus.OK);
-//        else
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+        service.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<LockedNumberEntity> read(@PathVariable("id") Long id) {
+        LockedNumberEntity toReturn = service.getOne(id);
+        if (toReturn != null)
+            return new ResponseEntity<>(toReturn, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<LockedNumberEntity> create(@RequestBody LockedNumberEntity lockedNumber) {
