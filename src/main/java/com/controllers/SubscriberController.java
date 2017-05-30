@@ -73,9 +73,13 @@ public class SubscriberController {
         return lockedNumberModule.delete(lockedNumberDELETEList,subscriberId);
     }
     @RequestMapping(value = "/{id}/lockedNumber/", method = RequestMethod.POST)
-    public ResponseEntity<ResponseDATA<List<LockedNumberEntity>>> createLockedNumber(@RequestBody List<LockedNumberEntity> lockedNumberCREATEList) {
-    return lockedNumberModule.create(lockedNumberCREATEList);
+    public ResponseEntity<LockedNumberEntity> createlockedNumber(@RequestBody LockedNumberEntity entity) {
+        return lockedNumberModule.createOne(entity);
     }
+    /* public ResponseEntity<ResponseDATA<List<LockedNumberEntity>>> createLockedNumber(@RequestBody List<LockedNumberEntity> lockedNumberCREATEList) {
+    return lockedNumberModule.create(lockedNumberCREATEList);
+    }*/
+
 
     @RequestMapping(value = "/{id}/lockedNumber/{lockedNumberID}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<LockedNumberEntity> getLockedNumber(@PathVariable("id") Long subscriberID, @PathVariable("lockedNumberID") Long lockedNumberID) {
@@ -96,10 +100,13 @@ public class SubscriberController {
         return callHuntingModule.delete(callHuntingDELETEList,subscriberID);
     }
     @RequestMapping(value = "/{id}/call_hunting/", method = RequestMethod.POST)
-    public ResponseEntity<ResponseDATA<List<CallHuntingEntity>>> createCallHunting(@RequestBody List<CallHuntingEntity> call_huntingCREATEList) {
-        return callHuntingModule.create(call_huntingCREATEList);
 
+    public ResponseEntity<CallHuntingEntity> createCallHunting(@RequestBody CallHuntingEntity entity) {
+        return callHuntingModule.createOne(entity);
     }
+//        public ResponseEntity<ResponseDATA<List<CallHuntingEntity>>> createCallHunting(@RequestBody List<CallHuntingEntity> call_huntingCREATEList) {
+//        return callHuntingModule.create(call_huntingCREATEList);
+//    }
 
     @RequestMapping(value = "/{id}/call_hunting/{call_huntingID}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CallHuntingEntity> getCallHunting(@PathVariable("id") Long subscriberID, @PathVariable("call_huntingID") Long call_huntingID) {
@@ -120,9 +127,12 @@ public class SubscriberController {
         return decoratorModule.delete(blackWhiteDELETEList,subscriberID);
     }
     @RequestMapping(value = "/{id}/black_white_list/", method = RequestMethod.POST)
-    public ResponseEntity<ResponseDATA<List<BlackWhiteListEntity>>> createBlackWhiteList(@RequestBody List<BlackWhiteListEntity> black_white_listCREATEList) {
-        return decoratorModule.create(black_white_listCREATEList);
+    public ResponseEntity<BlackWhiteListEntity> createBlackWhiteList(@RequestBody BlackWhiteListEntity entity) {
+        return decoratorModule.createOne(entity);
     }
+    //    public ResponseEntity<ResponseDATA<List<BlackWhiteListEntity>>> createBlackWhiteList(@RequestBody List<BlackWhiteListEntity> black_white_listCREATEList) {
+    //        return decoratorModule.create(black_white_listCREATEList);
+    //    }
 
     @RequestMapping(value = "/{id}/black_white_list/{black_white_listID}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BlackWhiteListEntity> getBlackWhiteList(@PathVariable("id") Long subscriberID, @PathVariable("black_white_listID") Long black_white_listID) {
