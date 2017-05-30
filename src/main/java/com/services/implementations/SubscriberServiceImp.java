@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -70,10 +69,10 @@ public class SubscriberServiceImp implements SubscriberService {
         persisted.setScbAddressFloor(entry.getScbAddressFloor());
         persisted.setScbAddressNumber(entry.getScbAddressNumber());
         persisted.setScbAddressStreet(entry.getScbAddressStreet());
-        persisted.setScbCmmId(entry.getScbCmmId());
+        persisted.setScbCommunityId(entry.getScbCommunityId());
         persisted.setScbDn(entry.getScbDn());
         persisted.setScbFirstName(entry.getScbFirstName());
-        persisted.setScbHzsId(entry.getScbHzsId());
+        persisted.setScbZoneId(entry.getScbZoneId());
         persisted.setScbIdentificationNumber(entry.getScbIdentificationNumber());
         persisted.setScbImsi(entry.getScbImsi());
         persisted.setScbLastName(entry.getScbLastName());
@@ -82,8 +81,8 @@ public class SubscriberServiceImp implements SubscriberService {
         persisted.setScbModel(entry.getScbModel());
         persisted.setScbPassword(entry.getScbPassword());
         persisted.setScbPingPokeCall(entry.getScbPingPokeCall());
-        persisted.setScbRplId(entry.getScbRplId());
-        persisted.setScbSclId(entry.getScbSclId());
+        persisted.setScbRplanId(entry.getScbRplanId());
+        persisted.setScbSclassId(entry.getScbSclassId());
         return persisted;
     }
 }

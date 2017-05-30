@@ -1,8 +1,8 @@
 package com.controllers;
 
 import com.controllers.util.ResponseDATA;
-import com.models.HomeZoneEntity;
-import com.repositories.HomeZoneRepository;
+import com.models.ZoneEntity;
+import com.repositories.ZoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +18,10 @@ import java.util.List;
 @RequestMapping("/homezone")
 public class HomeZoneController {
     @Autowired
-    HomeZoneRepository repository;
+    ZoneRepository repository;
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity<ResponseDATA<List<HomeZoneEntity>>> getAll(){
-        List<HomeZoneEntity> allObjects= this.repository.findAll();
+    public ResponseEntity<ResponseDATA<List<ZoneEntity>>> getAll(){
+        List<ZoneEntity> allObjects= this.repository.findAll();
         return new ResponseEntity<>(new ResponseDATA<>(allObjects,allObjects.size()), HttpStatus.OK);
     }
 }
