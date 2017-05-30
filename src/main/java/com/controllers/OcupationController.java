@@ -1,8 +1,8 @@
 package com.controllers;
 
 import com.controllers.util.ResponseDATA;
-import com.models.ServiceClassEntity;
-import com.repositories.ServiceClassRepository;
+import com.models.OcupationDiscountPlanEntity;
+import com.repositories.OcupationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,15 +13,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * Created by fcuenca on 5/30/17.
+ */
 @CrossOrigin
 @RestController
-@RequestMapping("/serviceclass")
-public class ServiceClassController {
+@RequestMapping("/ocupation")
+
+public class OcupationController {
     @Autowired
-    ServiceClassRepository repository;
+    OcupationRepository repository;
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity<ResponseDATA<List<ServiceClassEntity>>> getAll() {
-        List<ServiceClassEntity> allObjects = this.repository.findAll();
-        return new ResponseEntity<>(new ResponseDATA<>(allObjects, allObjects.size()), HttpStatus.OK);
+    public ResponseEntity<ResponseDATA<List<OcupationDiscountPlanEntity>>> getAll(){
+        List<OcupationDiscountPlanEntity> allObjects= this.repository.findAll();
+        return new ResponseEntity<>(new ResponseDATA<>(allObjects,allObjects.size()), HttpStatus.OK);
     }
 }

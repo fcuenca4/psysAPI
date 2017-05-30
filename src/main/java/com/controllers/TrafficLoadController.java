@@ -1,8 +1,9 @@
 package com.controllers;
 
 import com.controllers.util.ResponseDATA;
-import com.models.ServiceClassEntity;
-import com.repositories.ServiceClassRepository;
+import com.models.ServiceItemEntity;
+import com.models.TrafficLoadDiscountEntity;
+import com.repositories.TrafficLoadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +16,14 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/serviceclass")
-public class ServiceClassController {
+@RequestMapping("/trafficload")
+
+public class TrafficLoadController {
     @Autowired
-    ServiceClassRepository repository;
+    TrafficLoadRepository repository;
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity<ResponseDATA<List<ServiceClassEntity>>> getAll() {
-        List<ServiceClassEntity> allObjects = this.repository.findAll();
-        return new ResponseEntity<>(new ResponseDATA<>(allObjects, allObjects.size()), HttpStatus.OK);
+    public ResponseEntity<ResponseDATA<List<TrafficLoadDiscountEntity>>> getAll(){
+        List<TrafficLoadDiscountEntity> allObjects= this.repository.findAll();
+        return new ResponseEntity<>(new ResponseDATA<>(allObjects,allObjects.size()), HttpStatus.OK);
     }
 }
