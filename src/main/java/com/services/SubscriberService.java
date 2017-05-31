@@ -5,11 +5,11 @@ import java.util.List;
 
 public interface SubscriberService {
      List<SubscriberEntity>  getAll();
-     SubscriberEntity getOne(Long id);
+     SubscriberEntity getOne(Long id) ;
      void delete(Long id);
      SubscriberEntity create(SubscriberEntity subscriber);
      boolean exists(SubscriberEntity subscriber);
      //boolean existsDN(SubscriberEntity subscriber);
      SubscriberEntity update(SubscriberEntity entry, SubscriberEntity persisted);
-     List<SubscriberEntity> getAllByScbDn(Long scbDn);
+     List<SubscriberEntity> getAllByScbDn(String scbDn);
 }

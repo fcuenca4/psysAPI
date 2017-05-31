@@ -1,6 +1,8 @@
 package com.controllers.crud;
 
 import com.controllers.util.ResponseDATA;
+import com.exceptions.EntityAlreadyExistsException;
+import com.exceptions.EntityNotFoundException;
 import com.models.LockedNumberEntity;
 import com.models.SubscriberEntity;
 import org.springframework.http.HttpStatus;
@@ -44,15 +46,15 @@ public class lockedNumberModule extends baseModule<LockedNumberEntity> {
     @Override
     public ResponseEntity<LockedNumberEntity> createOne(LockedNumberEntity entity) {
         if (lockedNumberService.exists(entity))
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            throw new EntityAlreadyExistsException("locked number already exists",null);
         LockedNumberEntity toReturn = lockedNumberService.create(entity);
         return new ResponseEntity<>(toReturn, HttpStatus.CREATED);
     }
 
     @Override
-    public ResponseEntity<Void> delete(List<Long> idList, Long lockedNumberID) {
+    public ResponseEntity<Void> delete(List<Long> idList, Long subscriberID) {
         for (Long id : idList) {
-            LockedNumberEntity toRet = lockedNumberService.findByLckIdAndLckScbId(id, lockedNumberID);
+            LockedNumberEntity toRet = lockedNumberService.findByLckIdAndLckScbId(id, subscriberID);
             if (toRet != null)
                 lockedNumberService.delete(toRet.getLckId());
         }
@@ -65,17 +67,24 @@ public class lockedNumberModule extends baseModule<LockedNumberEntity> {
         if (toRet != null)
             return new ResponseEntity<>(toRet, HttpStatus.OK);
         else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFoundException("locked number not found",null);
     }
 
     @Override
     public ResponseEntity<LockedNumberEntity> update(Long lockedNumberID, LockedNumberEntity entity) {
         LockedNumberEntity current = lockedNumberService.getOne(lockedNumberID);
         if (current == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFoundException("locked number not found",null);
         }
         LockedNumberEntity toReturn = lockedNumberService.update(entity, current);
         return new ResponseEntity<>(toReturn, HttpStatus.OK);
 
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteOne(Long id, Long subscriberID) {
+        LockedNumberEntity toRet= lockedNumberService.findByLckIdAndLckScbId(id,subscriberID);
+        lockedNumberService.delete(toRet.getLckId());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

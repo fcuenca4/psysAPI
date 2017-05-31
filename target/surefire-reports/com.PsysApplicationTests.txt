@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.PsysApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 45.871 sec - in com.PsysApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 44.278 sec - in com.PsysApplicationTests

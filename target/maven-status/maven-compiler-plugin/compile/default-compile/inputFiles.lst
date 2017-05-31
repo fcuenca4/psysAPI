@@ -1,5 +1,7 @@
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/controllers/ServiceClassController.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/controllers/ServiceTypeController.java
+/User/fcuenca/Desktop/Git/psys/src/main/java/com/exceptions/EntityAlreadyExistsException.java
+/User/fcuenca/Desktop/Git/psys/src/main/java/com/exceptions/CustomException.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/models/TrafficLoadDiscountEntity.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/repositories/ServiceClassRepository.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/models/NeighboringZoneDiscountEntity.java
@@ -23,11 +25,11 @@
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/controllers/ZoneController.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/models/ZoneEntity.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/controllers/CallHuntingController.java
-/User/fcuenca/Desktop/Git/psys/src/main/java/com/controllers/HomeZoneController.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/services/implementations/SubscriberServiceImp.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/controllers/CommunityController.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/PsysApplication.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/repositories/CommunityRepository.java
+/User/fcuenca/Desktop/Git/psys/src/main/java/com/exceptions/EntityNotFoundException.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/controllers/TrafficLoadController.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/controllers/SubscriberController.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/models/ServiceTypeEntity.java

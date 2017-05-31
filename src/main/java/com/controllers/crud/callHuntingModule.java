@@ -1,7 +1,10 @@
 package com.controllers.crud;
 
 import com.controllers.util.ResponseDATA;
+import com.exceptions.EntityAlreadyExistsException;
+import com.exceptions.EntityNotFoundException;
 import com.models.CallHuntingEntity;
+import com.models.LockedNumberEntity;
 import com.models.SubscriberEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +47,7 @@ public class callHuntingModule extends baseModule<CallHuntingEntity> {
     @Override
     public ResponseEntity<CallHuntingEntity> createOne(CallHuntingEntity entity) {
         if (callHuntingService.exists(entity))
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            throw new EntityAlreadyExistsException("call hunting already exists",null);
         CallHuntingEntity toReturn = callHuntingService.create(entity);
         return new ResponseEntity<>(toReturn, HttpStatus.CREATED);
     }
@@ -65,16 +68,23 @@ public class callHuntingModule extends baseModule<CallHuntingEntity> {
         if (toRet != null)
             return new ResponseEntity<>(toRet, HttpStatus.OK);
         else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFoundException("call hunting not found",null);
     }
 
     @Override
     public ResponseEntity<CallHuntingEntity> update(Long call_huntingID, CallHuntingEntity entity) {
         CallHuntingEntity current = callHuntingService.getOne(call_huntingID);
         if (current == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFoundException("call hunting not found",null);
         }
         CallHuntingEntity toReturn = callHuntingService.update(entity, current);
         return new ResponseEntity<>(toReturn, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteOne(Long id, Long subscriberID) {
+        CallHuntingEntity toRet= callHuntingService.findByChtIdAndChtScbId(id,subscriberID);
+        callHuntingService.delete(toRet.getChtId());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

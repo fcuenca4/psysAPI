@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 public class LockedNumberEntity {
     private long lckId;
     private Long lckScbId;
-    private Long lckDn;
+    private String lckDn;
     private Long lckSvtId;
     private Timestamp lckLastUpdateUtc;
     @SequenceGenerator(
@@ -42,13 +42,13 @@ public class LockedNumberEntity {
     }
 
     @Basic
-    @Column(name = "LCK_DN", nullable = true, precision = 0)
-    public Long getLckDn() {
+    @Column(name = "LCK_DN", nullable = true, length = 64)
+    public String getLckDn() {
         return lckDn;
     }
 
-    public void setLckDn(Long lckDn) {
-        this.lckDn = lckDn;
+    public void setLckDn(String bwlDn) {
+        this.lckDn = bwlDn;
     }
 
     @Basic

@@ -1,5 +1,7 @@
 package com.controllers;
 
+import com.exceptions.EntityAlreadyExistsException;
+import com.exceptions.EntityNotFoundException;
 import com.models.CallHuntingEntity;
 import com.services.CallHuntingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +38,13 @@ public class CallHuntingController {
         if (toReturn != null)
             return new ResponseEntity<>(toReturn, HttpStatus.OK);
         else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFoundException("call hunting not found",null);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<CallHuntingEntity> create(@RequestBody CallHuntingEntity callHunting) {
-        if (service.exists(callHunting) && callHunting.getChtId() != 0)
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        if (service.exists(callHunting))
+            throw new EntityAlreadyExistsException("call hunting already exists",null);
         CallHuntingEntity toReturn = service.create(callHunting);
         return new ResponseEntity<>(toReturn, HttpStatus.CREATED);
     }
@@ -51,7 +53,7 @@ public class CallHuntingController {
     public ResponseEntity<CallHuntingEntity> update(@PathVariable("id") long id, @RequestBody CallHuntingEntity entry) {
         CallHuntingEntity current = service.getOne(id);
         if (current == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFoundException("call hunting not found",null);
         }
         CallHuntingEntity toReturn = service.update(entry, current);
         return new ResponseEntity<>(toReturn, HttpStatus.OK);

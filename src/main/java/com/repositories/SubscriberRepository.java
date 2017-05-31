@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface SubscriberRepository extends JpaRepository<SubscriberEntity,Long> {
-    List<SubscriberEntity> findAllByScbDn(Long ScbDn);
-    SubscriberEntity findFirstByScbDn(Long ScbDn);
+    List<SubscriberEntity> findAllByScbDn(String ScbDn);
+    SubscriberEntity findFirstByScbDn(String ScbDn);
 }
 

@@ -1,5 +1,7 @@
 package com.controllers;
 
+import com.exceptions.EntityAlreadyExistsException;
+import com.exceptions.EntityNotFoundException;
 import com.models.LockedNumberEntity;
 import com.services.LockedNumberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +38,13 @@ public class LockedNumberController {
         if (toReturn != null)
             return new ResponseEntity<>(toReturn, HttpStatus.OK);
         else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFoundException("locked number not found",null);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<LockedNumberEntity> create(@RequestBody LockedNumberEntity lockedNumber) {
         if (service.exists(lockedNumber))
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            throw new EntityAlreadyExistsException("locked number already exists",null);
         LockedNumberEntity toReturn = service.create(lockedNumber);
         return new ResponseEntity<>(toReturn, HttpStatus.CREATED);
     }
@@ -51,7 +53,7 @@ public class LockedNumberController {
     public ResponseEntity<LockedNumberEntity> update(@PathVariable("id") long id, @RequestBody LockedNumberEntity entry) {
         LockedNumberEntity current = service.getOne(id);
         if (current == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFoundException("locked number not found",null);
         }
         LockedNumberEntity toReturn = service.update(entry, current);
         return new ResponseEntity<>(toReturn, HttpStatus.OK);

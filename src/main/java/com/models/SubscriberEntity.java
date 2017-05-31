@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 @Table(name = "PPS_SUBSCRIBERS", schema = "PREPAID_SCH", catalog = "")
 public class SubscriberEntity {
     private long scbId;
-    private Long scbDn;
+    private String scbDn;
     private String scbLastName;
     private String scbFirstName;
     private Long scbIdentificationNumber;
@@ -46,12 +46,11 @@ public class SubscriberEntity {
     }
 
     @Basic
-    @Column(name = "SCB_DN", nullable = true, precision = 0)
-    public Long getScbDn() {
+    @Column(name = "SCB_DN", nullable = true, precision = 0, length = 64)
+    public String getScbDn() {
         return scbDn;
     }
-
-    public void setScbDn(Long scbDn) {
+    public void setScbDn(String scbDn) {
         this.scbDn = scbDn;
     }
 

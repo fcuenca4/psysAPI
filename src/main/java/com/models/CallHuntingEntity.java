@@ -12,7 +12,7 @@ public class CallHuntingEntity {
     private long chtId;
     private Long chtScbId;
     private Long chtPriority;
-    private Long chtDn;
+    private String chtDn;
     private Timestamp chtLastUpdateUtc;
     @SequenceGenerator(
             allocationSize = 1,
@@ -50,13 +50,13 @@ public class CallHuntingEntity {
     }
 
     @Basic
-    @Column(name = "CHT_DN", nullable = true, precision = 0)
-    public Long getChtDn() {
+    @Column(name = "CHT_DN", nullable = true, length = 64)
+    public String getChtDn() {
         return chtDn;
     }
 
-    public void setChtDn(Long chtDn) {
-        this.chtDn = chtDn;
+    public void setChtDn(String bwlDn) {
+        this.chtDn = bwlDn;
     }
 
     @Basic

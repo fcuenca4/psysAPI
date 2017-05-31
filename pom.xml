@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com</groupId>
-    <artifactId>psys</artifactId>
-    <version>1.0.0.0</version>
+    <artifactId>PSYS</artifactId>
+    <version>1.0.0.2</version>
     <packaging>jar</packaging>
 
     <name>psys</name>

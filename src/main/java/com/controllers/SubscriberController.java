@@ -1,6 +1,7 @@
 package com.controllers;
 
 import com.controllers.util.ResponseDATA;
+import com.exceptions.EntityAlreadyExistsException;
 import com.models.*;
 import com.controllers.crud.subscriberModule;
 import com.controllers.crud.lockedNumberModule;
@@ -39,18 +40,22 @@ public class SubscriberController {
     * TODO: VER FILTROS
     * */
     @RequestMapping(value = "/dn/{id}", method = RequestMethod.GET)
-    public ResponseEntity<ResponseDATA<List<SubscriberEntity>>> getSubscriberByScbDn(@PathVariable("id") Long ScbDn) {
+    public ResponseEntity<ResponseDATA<List<SubscriberEntity>>> getSubscriberByScbDn(@PathVariable("id") String ScbDn) {
         return subscriberModule.getSubscriberByScbDn(ScbDn);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponseEntity<SubscriberEntity> createSubscriber(@RequestBody SubscriberEntity subscriber) {
+    public ResponseEntity<SubscriberEntity> createSubscriber(@RequestBody SubscriberEntity subscriber) throws EntityAlreadyExistsException {
         return subscriberModule.createOne(subscriber);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> deleteSubscriber(@RequestBody List<Long> subscriberDELETEList) {
-        return subscriberModule.delete(subscriberDELETEList,null);
+//    @RequestMapping(value = "", method = RequestMethod.DELETE)
+//    public ResponseEntity<Void> deleteSubscriber(@RequestBody List<Long> subscriberDELETEList) {
+//        return subscriberModule.delete(subscriberDELETEList,null);
+//    }
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteOneSubscriber(@PathVariable("id") Long subscriberID) {
+        return subscriberModule.deleteOne(null,subscriberID);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

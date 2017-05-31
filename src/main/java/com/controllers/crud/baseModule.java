@@ -1,6 +1,8 @@
 package com.controllers.crud;
 
 import com.controllers.util.ResponseDATA;
+import com.exceptions.EntityAlreadyExistsException;
+import com.exceptions.EntityNotFoundException;
 import com.services.CallHuntingService;
 import com.services.DecoratorService;
 import com.services.LockedNumberService;
@@ -26,10 +28,10 @@ public abstract class baseModule<T> {
 
     @Deprecated
     public abstract ResponseEntity<ResponseDATA<List<T>>> create(List<T> entity);
-    public abstract ResponseEntity<T> createOne(T entity);
+    public abstract ResponseEntity<T> createOne(T entity) throws EntityAlreadyExistsException;
     public abstract ResponseEntity<Void> delete(List<Long> id, Long subscriberID);
-    public abstract ResponseEntity<T> getOne(Long id, Long subscriberID);
+    public abstract ResponseEntity<T> getOne(Long id, Long subscriberID) throws EntityNotFoundException;
     public abstract ResponseEntity<T> update(Long id, T entity);
-
+    public abstract ResponseEntity<Void> deleteOne(Long id, Long subscriberID);
 }
 

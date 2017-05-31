@@ -20,7 +20,6 @@ com/controllers/LanguageController.class
 com/services/LockedNumberService.class
 com/models/CallHuntingEntity.class
 com/repositories/CallHuntingRepository.class
-com/controllers/HomeZoneController.class
 com/repositories/RatingPlanRepository.class
 com/services/DecoratorService.class
 com/controllers/CommunityController.class

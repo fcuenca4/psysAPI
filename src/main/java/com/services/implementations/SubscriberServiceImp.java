@@ -62,7 +62,7 @@ public class SubscriberServiceImp implements SubscriberService {
     }
 
     @Override
-    public List<SubscriberEntity> getAllByScbDn(Long scbDn) {
+    public List<SubscriberEntity> getAllByScbDn(String scbDn) {
         return repository.findAllByScbDn(scbDn);
     }
 

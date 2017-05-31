@@ -1,5 +1,7 @@
 package com.controllers;
 
+import com.exceptions.EntityAlreadyExistsException;
+import com.exceptions.EntityNotFoundException;
 import com.models.BlackWhiteListEntity;
 import com.services.DecoratorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,13 +39,13 @@ public class DecoratorController {
         if (toReturn != null)
             return new ResponseEntity<>(toReturn, HttpStatus.OK);
         else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFoundException("black white list not found",null);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<BlackWhiteListEntity> create(@RequestBody BlackWhiteListEntity blackWhiteList) {
         if (service.exists(blackWhiteList))
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            throw new EntityAlreadyExistsException("black white already exists",null);
         BlackWhiteListEntity toReturn = service.create(blackWhiteList);
         return new ResponseEntity<>(toReturn, HttpStatus.CREATED);
     }
@@ -52,7 +54,7 @@ public class DecoratorController {
     public ResponseEntity<BlackWhiteListEntity> update(@PathVariable("id") long id, @RequestBody BlackWhiteListEntity entry) {
         BlackWhiteListEntity current = service.getOne(id);
         if (current == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFoundException("black white list not found",null);
         }
         BlackWhiteListEntity toReturn = service.update(entry, current);
         return new ResponseEntity<>(toReturn, HttpStatus.OK);

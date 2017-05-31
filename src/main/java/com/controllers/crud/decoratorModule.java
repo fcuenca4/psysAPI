@@ -1,7 +1,10 @@
 package com.controllers.crud;
 
 import com.controllers.util.ResponseDATA;
+import com.exceptions.EntityAlreadyExistsException;
+import com.exceptions.EntityNotFoundException;
 import com.models.BlackWhiteListEntity;
+import com.models.LockedNumberEntity;
 import com.models.SubscriberEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +47,8 @@ public class decoratorModule extends baseModule<BlackWhiteListEntity> {
     @Override
     public ResponseEntity<BlackWhiteListEntity> createOne(BlackWhiteListEntity entity) {
         if (decoratorService.exists(entity))
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            throw new EntityAlreadyExistsException("black white already exists",null);
+
         BlackWhiteListEntity toReturn = decoratorService.create(entity);
         return new ResponseEntity<>(toReturn, HttpStatus.CREATED);
     }
@@ -65,16 +69,23 @@ public class decoratorModule extends baseModule<BlackWhiteListEntity> {
         if (toRet != null)
             return new ResponseEntity<>(toRet, HttpStatus.OK);
         else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFoundException("black white list not found",null);
     }
 
     @Override
     public ResponseEntity<BlackWhiteListEntity> update(Long black_white_listID, BlackWhiteListEntity entity) {
         BlackWhiteListEntity current = decoratorService.getOne(black_white_listID);
         if (current == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new EntityNotFoundException("black white list not found",null);
         }
         BlackWhiteListEntity toReturn = decoratorService.update(entity, current);
         return new ResponseEntity<>(toReturn, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteOne(Long id, Long subscriberID) {
+        BlackWhiteListEntity toRet= decoratorService.findByBwlIdAndBwlScbId(id,subscriberID);
+        decoratorService.delete(toRet.getBwlId());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
