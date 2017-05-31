@@ -77,7 +77,7 @@ public class SubscriberController {
     public ResponseEntity<Void> deleteLockedNumber(@PathVariable("id") Long subscriberId, @RequestBody List<Long> lockedNumberDELETEList) {
         return lockedNumberModule.delete(lockedNumberDELETEList,subscriberId);
     }
-    @RequestMapping(value = "/{id}/lockedNumber/", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/lockedNumber", method = RequestMethod.POST)
     public ResponseEntity<LockedNumberEntity> createlockedNumber(@RequestBody LockedNumberEntity entity) {
         return lockedNumberModule.createOne(entity);
     }
@@ -104,7 +104,7 @@ public class SubscriberController {
     public ResponseEntity<Void> deleteCallHunting(@PathVariable("id") Long subscriberID, @RequestBody List<Long> callHuntingDELETEList) {
         return callHuntingModule.delete(callHuntingDELETEList,subscriberID);
     }
-    @RequestMapping(value = "/{id}/call_hunting/", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/call_hunting", method = RequestMethod.POST)
 
     public ResponseEntity<CallHuntingEntity> createCallHunting(@RequestBody CallHuntingEntity entity) {
         return callHuntingModule.createOne(entity);
@@ -127,11 +127,11 @@ public class SubscriberController {
     public ResponseEntity<ResponseDATA<List<BlackWhiteListEntity>>> getBlackWhiteList(@PathVariable("id") long id) {
     return decoratorModule.getAll(id);
     }
-    @RequestMapping(value = "/{id}/black_white_list/", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}/black_white_list", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteBlackWhiteList(@PathVariable("id") Long subscriberID, @RequestBody List<Long> blackWhiteDELETEList) {
         return decoratorModule.delete(blackWhiteDELETEList,subscriberID);
     }
-    @RequestMapping(value = "/{id}/black_white_list/", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/black_white_list", method = RequestMethod.POST)
     public ResponseEntity<BlackWhiteListEntity> createBlackWhiteList(@RequestBody BlackWhiteListEntity entity) {
         return decoratorModule.createOne(entity);
     }

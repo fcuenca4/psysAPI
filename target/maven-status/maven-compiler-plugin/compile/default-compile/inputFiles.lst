@@ -18,6 +18,7 @@
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/repositories/TrafficLoadRepository.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/controllers/LockedNumberController.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/controllers/DecoratorController.java
+/User/fcuenca/Desktop/Git/psys/src/main/java/com/models/CellEntity.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/controllers/RatingPlanController.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/services/CallHuntingService.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/controllers/NeighboringController.java
@@ -30,11 +31,11 @@
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/PsysApplication.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/repositories/CommunityRepository.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/exceptions/EntityNotFoundException.java
+/User/fcuenca/Desktop/Git/psys/src/main/java/com/repositories/CellRepository.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/controllers/TrafficLoadController.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/controllers/SubscriberController.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/models/ServiceTypeEntity.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/services/SubscriberService.java
-/User/fcuenca/Desktop/Git/psys/src/main/java/com/models/CellsEntity.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/models/ServiceClassEntity.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/models/ZoneCellEntity.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/repositories/DecoratorRepository.java
@@ -50,6 +51,7 @@
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/repositories/CallHuntingRepository.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/repositories/LanguageRepository.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/models/CallHuntingEntity.java
+/User/fcuenca/Desktop/Git/psys/src/main/java/com/controllers/CellController.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/models/BlackWhiteListEntity.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/repositories/ServiceTypeRepository.java
 /User/fcuenca/Desktop/Git/psys/src/main/java/com/controllers/util/ResponseDATA.java
