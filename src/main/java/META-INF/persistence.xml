@@ -3,7 +3,7 @@
 
     <persistence-unit name="NewPersistenceUnit">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>com.models.CellsEntity</class>
+        <class>com.models.CellEntity</class>
         <class>com.models.CommunityEntity</class>
         <class>com.models.NeighboringZoneDiscountEntity</class>
         <class>com.models.OcupationDiscountPlanEntity</class>
@@ -25,6 +25,7 @@
             <property name="hibernate.connection.driver_class" value="oracle.jdbc.OracleDriver"/>
             <property name="hibernate.connection.username" value=""/>
             <property name="hibernate.connection.password" value=""/>
+            <property name="hibernate.synonyms" value="true"/>
             <property name="hibernate.archive.autodetection" value="class"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>

@@ -7,10 +7,10 @@ import java.sql.Timestamp;
  * Created by fcuenca on 5/30/17.
  */
 @Entity
-@Table(name = "CELLS", schema = "PREPAID_SCH", catalog = "")
-public class CellsEntity {
+
+@Table(name = "CELLS")
+public class CellEntity {
     private long cellId;
-    private String cellName;
     private Long cellCgi;
     private Long cellLatitude;
     private Long cellLongitude;
@@ -31,16 +31,6 @@ public class CellsEntity {
 
     public void setCellId(long cellId) {
         this.cellId = cellId;
-    }
-
-    @Basic
-    @Column(name = "CELL_NAME", nullable = true, length = 128)
-    public String getCellName() {
-        return cellName;
-    }
-
-    public void setCellName(String cellName) {
-        this.cellName = cellName;
     }
 
     @Basic
@@ -98,10 +88,9 @@ public class CellsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CellsEntity that = (CellsEntity) o;
+        CellEntity that = (CellEntity) o;
 
         if (cellId != that.cellId) return false;
-        if (cellName != null ? !cellName.equals(that.cellName) : that.cellName != null) return false;
         if (cellCgi != null ? !cellCgi.equals(that.cellCgi) : that.cellCgi != null) return false;
         if (cellLatitude != null ? !cellLatitude.equals(that.cellLatitude) : that.cellLatitude != null) return false;
         if (cellLongitude != null ? !cellLongitude.equals(that.cellLongitude) : that.cellLongitude != null)
@@ -113,7 +102,6 @@ public class CellsEntity {
     @Override
     public int hashCode() {
         int result = (int) (cellId ^ (cellId >>> 32));
-        result = 31 * result + (cellName != null ? cellName.hashCode() : 0);
         result = 31 * result + (cellCgi != null ? cellCgi.hashCode() : 0);
         result = 31 * result + (cellLatitude != null ? cellLatitude.hashCode() : 0);
         result = 31 * result + (cellLongitude != null ? cellLongitude.hashCode() : 0);

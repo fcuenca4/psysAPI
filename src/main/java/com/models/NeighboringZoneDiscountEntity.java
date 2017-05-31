@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * Created by fcuenca on 5/30/17.
  */
 @Entity
-@Table(name = "HZ_NEIGHBORING_ZONE_DISCOUNTS", schema = "PREPAID_SCH", catalog = "")
+@Table(name = "HZ_NEIGHBORING_ZONE_DISCOUNTS")
 public class NeighboringZoneDiscountEntity {
     private long hznzdId;
     private Long hznzdLacCellId;

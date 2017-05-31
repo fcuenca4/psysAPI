@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * Created by fcuenca on 5/30/17.
  */
 @Entity
-@Table(name = "PPS_LANGUAGES", schema = "PREPAID_SCH", catalog = "")
+@Table(name = "PPS_LANGUAGES")
 public class LanguageEntity {
     private long lggId;
     private String lggLanguage;

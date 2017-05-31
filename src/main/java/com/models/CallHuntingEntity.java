@@ -29,6 +29,7 @@ public class CallHuntingEntity {
         this.chtId = chtId;
     }
 
+
     @Basic
     @Column(name = "CHT_SCB_ID", nullable = true, precision = 0)
     public Long getChtScbId() {

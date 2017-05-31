@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * Created by fcuenca on 5/30/17.
  */
 @Entity
-@Table(name = "HZ_TRAFFIC_LOAD_DISCOUNTS", schema = "PREPAID_SCH", catalog = "")
+@Table(name = "HZ_TRAFFIC_LOAD_DISCOUNTS")
 public class TrafficLoadDiscountEntity {
     private long hztldId;
     private Long hztldOrder;

@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * Created by fcuenca on 5/30/17.
  */
 @Entity
-@Table(name = "PPS_LOCKED_NUMBERS", schema = "PREPAID_SCH", catalog = "")
+@Table(name = "PPS_LOCKED_NUMBERS")
 public class LockedNumberEntity {
     private long lckId;
     private Long lckScbId;

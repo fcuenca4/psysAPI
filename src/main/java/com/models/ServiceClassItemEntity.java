@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * Created by fcuenca on 5/30/17.
  */
 @Entity
-@Table(name = "SERVICE_CLASS_ITEMS", schema = "PREPAID_SCH", catalog = "")
+@Table(name = "SERVICE_CLASS_ITEMS")
 public class ServiceClassItemEntity {
     private long sciId;
     private Long sciSclassId;

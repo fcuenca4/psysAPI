@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * Created by fcuenca on 5/30/17.
  */
 @Entity
-@Table(name = "PPS_SUBSCRIBERS", schema = "PREPAID_SCH", catalog = "")
+@Table(name = "PPS_SUBSCRIBERS")
 public class SubscriberEntity {
     private long scbId;
     private String scbDn;

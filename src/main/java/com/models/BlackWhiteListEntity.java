@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * Created by fcuenca on 5/30/17.
  */
 @Entity
-@Table(name = "PPS_BLACK_WHITE_LIST", schema = "PREPAID_SCH", catalog = "")
+@Table(name = "PPS_BLACK_WHITE_LIST")
 public class BlackWhiteListEntity {
     private long bwlId;
     private Long bwlScbId;

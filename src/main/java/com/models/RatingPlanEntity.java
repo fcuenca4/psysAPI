@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * Created by fcuenca on 5/30/17.
  */
 @Entity
-@Table(name = "RATING_PLANS", schema = "PREPAID_SCH", catalog = "")
+@Table(name = "RATING_PLANS")
 public class RatingPlanEntity {
     private long rplanId;
     private String rplanName;
