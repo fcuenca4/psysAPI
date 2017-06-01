@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * Created by fcuenca on 5/30/17.
  */
 @Entity
-@Table(name = "PPS_CALL_HUNTING", schema = "PREPAID_SCH", catalog = "")
+@Table(name = "PPS_CALL_HUNTING")
 public class CallHuntingEntity {
     private long chtId;
     private Long chtScbId;
