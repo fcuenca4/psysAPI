@@ -16,11 +16,11 @@ public class LockedNumberEntity {
     private Timestamp lckLastUpdateUtc;
     @SequenceGenerator(
             allocationSize = 1,
-            name="course_seq",
+            name="lockednumber_seq",
             sequenceName="SEQ_PPS_LCK_ID"
     )
     @Id
-    @GeneratedValue(generator = "course_seq")
+    @GeneratedValue(generator = "lockednumber_seq")
 
     @Column(name = "LCK_ID", nullable = false, precision = 0)
     public long getLckId() {

@@ -12,12 +12,7 @@ public class LanguageEntity {
     private long lggId;
     private String lggLanguage;
     private Timestamp lggLastUpdateUtc;
-    @SequenceGenerator(
-            allocationSize = 1,
-            name="course_seq",
-            sequenceName="SEQ_PPS_LGG_ID"
-    )
-    @GeneratedValue(generator = "course_seq")
+
     @Id
     @Column(name = "LGG_ID", nullable = false, precision = 0)
     public long getLggId() {

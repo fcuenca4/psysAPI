@@ -16,9 +16,9 @@ public class CallHuntingEntity {
     private Timestamp chtLastUpdateUtc;
     @SequenceGenerator(
             allocationSize = 1,
-            name="course_seq",
+            name="callhunting_seq",
             sequenceName="SEQ_PPS_CHT_ID")
-    @GeneratedValue(generator = "course_seq")
+    @GeneratedValue(generator = "callhunting_seq")
     @Id
     @Column(name = "CHT_ID", nullable = false, precision = 0)
     public long getChtId() {

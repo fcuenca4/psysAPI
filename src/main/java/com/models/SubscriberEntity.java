@@ -29,8 +29,13 @@ public class SubscriberEntity {
     private Long scbHzRplanId;
     private String scbPingPokeCall;
     private Timestamp scbLastUpdateUtc;
-
     @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="subscriber_seq")
+    @SequenceGenerator(
+            name="subscriber_seq",
+            sequenceName="SEQ_PPS_SCB_ID",
+            allocationSize=1
+    )
     @Column(name = "SCB_ID", nullable = false, precision = 0)
     public long getScbId() {
         return scbId;

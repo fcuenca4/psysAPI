@@ -15,16 +15,13 @@ public class BlackWhiteListEntity {
     private Long bwlSvtId;
     private String bwlDn;
     private Timestamp bwlLastUpdateUtc;
-
-
-
     private String bwlDescription;
     @SequenceGenerator(
             allocationSize = 1,
-            name="course_seq",
+            name="whitelist_seq",
             sequenceName="SEQ_PPS_BWL_ID"
     )
-    @GeneratedValue(generator = "course_seq")
+    @GeneratedValue(generator = "whitelist_seq")
     @Id
     @Column(name = "BWL_ID", nullable = false, precision = 0)
     public long getBwlId() {
