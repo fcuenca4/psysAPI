@@ -85,7 +85,8 @@ public class decoratorModule extends baseModule<BlackWhiteListEntity> {
     @Override
     public ResponseEntity<Void> deleteOne(Long id, Long subscriberID) {
         BlackWhiteListEntity toRet= decoratorService.findByBwlIdAndBwlScbId(id,subscriberID);
-        decoratorService.delete(toRet.getBwlId());
+        if (toRet!= null)
+            decoratorService.delete(toRet.getBwlId());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

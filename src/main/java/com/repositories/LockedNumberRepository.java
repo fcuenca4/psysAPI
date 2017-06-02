@@ -14,7 +14,7 @@ import java.util.List;
 public interface LockedNumberRepository extends JpaRepository<LockedNumberEntity,Long> {
     List<LockedNumberEntity> findAllByLckScbId(Long id);
     @Query("SELECT p FROM LockedNumberEntity p WHERE p.lckId = :lckId AND p.lckScbId = :ScbId")
-    LockedNumberEntity findByLckIdAndLckScbId(@Param("ScbId") Long ScbId, @Param("lckId")Long lckId);
+    LockedNumberEntity findByLckIdAndLckScbId( @Param("lckId")Long lckId,@Param("ScbId") Long ScbId);
     LockedNumberEntity findFirstByLckDn(Long LckDn);
 
 }

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!--property resource="application.properties" /-->
+    <!--appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>.%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg %n
+            </Pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>TRACE</level>
+        </filter>
+    </appender-->
+
+    <appender name="dailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>/MCOM/TSLE/apache-tomcat-8.0.35/logs/pps.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <FileNamePattern>/MCOM/TSLE/apache-tomcat-8.0.35/logs/pps.%d{yyyy-MM-dd}.log</FileNamePattern>
+
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <!--Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg %n</Pattern-->
+            <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg %n</Pattern>
+        </encoder>
+    </appender>
+
+    <!--appender name="asecFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>d:/Tomcats/apache-tomcat-8.0.23/logs/apiEir-asec.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>d:/Tomcats/apache-tomcat-8.0.23/logs/apiEir-asec.%d{yyyy-MM-dd}.log</FileNamePattern>
+
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg %n</Pattern>
+        </encoder>
+    </appender-->
+
+    <logger name="com.ats_connection" additivity="false">
+        <level value="TRACE" />
+        <appender-ref ref="dailyRollingFileAppender"/>
+
+    </logger>
+
+    <!--logger name=" com.ats_connection.filters.AsecFilter" additivity="false">
+        <level value="TRACE" />
+        <appender-ref ref="asecFileAppender"/>
+    </logger-->
+    <!-- ### log just the SQL ### -->
+    <logger name="org.hibernate.SQL" level="DEBUG"/>
+
+    <!-- ### log JDBC bind parameters ### -->
+    <logger name="org.hibernate.type" level="TRACE"/>
+
+    <logger name="org.hibernate.tool.hbm2ddl" level="DEBUG"/>
+
+    <logger name="org.springframework.web" level="DEBUG"/>
+
+    <!-- logger name="org.springframework.jdbc.core.JdbcTemplate" level="DEBUG"/-->
+    <logger name="org.springframework.jdbc" level="TRACE"/>
+
+    <logger name="org.hibernate.tool.hbm2ddl" level="DEBUG"/>
+
+    <root>
+        <level value="INFO" />
+        <appender-ref ref="dailyRollingFileAppender" />
+    </root>
+</configuration>

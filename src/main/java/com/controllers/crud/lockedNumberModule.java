@@ -84,7 +84,8 @@ public class lockedNumberModule extends baseModule<LockedNumberEntity> {
     @Override
     public ResponseEntity<Void> deleteOne(Long id, Long subscriberID) {
         LockedNumberEntity toRet= lockedNumberService.findByLckIdAndLckScbId(id,subscriberID);
-        lockedNumberService.delete(toRet.getLckId());
+        if (toRet!= null)
+            lockedNumberService.delete(toRet.getLckId());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

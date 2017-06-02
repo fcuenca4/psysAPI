@@ -84,7 +84,8 @@ public class callHuntingModule extends baseModule<CallHuntingEntity> {
     @Override
     public ResponseEntity<Void> deleteOne(Long id, Long subscriberID) {
         CallHuntingEntity toRet= callHuntingService.findByChtIdAndChtScbId(id,subscriberID);
-        callHuntingService.delete(toRet.getChtId());
+        if (toRet!= null)
+            callHuntingService.delete(toRet.getChtId());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
