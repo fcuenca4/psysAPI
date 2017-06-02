@@ -29,6 +29,7 @@ public class SubscriberEntity {
     private Long scbHzRplanId;
     private String scbPingPokeCall;
     private Timestamp scbLastUpdateUtc;
+    private String yieldZone;
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="subscriber_seq")
     @SequenceGenerator(
@@ -36,7 +37,9 @@ public class SubscriberEntity {
             sequenceName="SEQ_PPS_SCB_ID",
             allocationSize=1
     )
+
     @Column(name = "SCB_ID", nullable = false, precision = 0)
+
     public long getScbId() {
         return scbId;
     }
@@ -55,6 +58,14 @@ public class SubscriberEntity {
         this.scbDn = scbDn;
     }
 
+    @Column(name = "SCB_Yield_Zone", nullable = true, length = 1)
+    public String getYieldZone() {
+        return yieldZone;
+    }
+
+    public void setYieldZone(String yieldZone) {
+        this.yieldZone = yieldZone;
+    }
     @Basic
     @Column(name = "SCB_LAST_NAME", nullable = true, length = 256)
     public String getScbLastName() {
@@ -298,4 +309,6 @@ public class SubscriberEntity {
         result = 31 * result + (scbLastUpdateUtc != null ? scbLastUpdateUtc.hashCode() : 0);
         return result;
     }
+
+
 }

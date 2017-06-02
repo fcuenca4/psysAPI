@@ -86,6 +86,7 @@ public class SubscriberServiceImp implements SubscriberService {
         persisted.setScbRplanId(entry.getScbRplanId());
         persisted.setScbSclassId(entry.getScbSclassId());
         persisted.setScbHomeZone(entry.getScbHomeZone());
+        persisted.setYieldZone(entry.getYieldZone());
         return persisted;
     }
 }

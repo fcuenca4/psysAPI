@@ -12,11 +12,10 @@
     </appender-->
 
     <appender name="dailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>/MCOM/TSLE/apache-tomcat-8.0.35/logs/pps.log</File>
+        <File>/MCOM/TSLE/apache-tomcat-8.0.35/logs/psys.%d{yyyy-MM-dd}.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <FileNamePattern>/MCOM/TSLE/apache-tomcat-8.0.35/logs/pps.%d{yyyy-MM-dd}.log</FileNamePattern>
-
+            <FileNamePattern>/MCOM/TSLE/apache-tomcat-8.0.35/logs/psys.%d{yyyy-MM-dd}.log</FileNamePattern>
             <!-- keep 30 days' worth of history -->
             <maxHistory>30</maxHistory>
         </rollingPolicy>
