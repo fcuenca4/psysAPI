@@ -1,4 +1,6 @@
 package com.controllers;
+
+
 import com.controllers.util.ResponseDATA;
 import com.models.CommunityEntity;
 import com.repositories.CommunityRepository;
@@ -11,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-@RestController
+
 @CrossOrigin
+@RestController
 @RequestMapping("/community")
 public class CommunityController {
     @Autowired
     CommunityRepository repository;
-
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<ResponseDATA<List<CommunityEntity>>> getAll(){
         List<CommunityEntity> allObjects= this.repository.findAll();

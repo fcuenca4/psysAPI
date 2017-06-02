@@ -69,6 +69,7 @@ public class DecoratorServiceImp implements DecoratorService {
         persisted.setBwlLastUpdateUtc(entry.getBwlLastUpdateUtc());
         persisted.setBwlScbId(entry.getBwlScbId());
         persisted.setBwlSvtId(entry.getBwlSvtId());
+        persisted.setBwlDescription(entry.getBwlDescription());
         return persisted;
     }
 }

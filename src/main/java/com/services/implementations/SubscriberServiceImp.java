@@ -74,7 +74,7 @@ public class SubscriberServiceImp implements SubscriberService {
         persisted.setScbCommunityId(entry.getScbCommunityId());
         persisted.setScbDn(entry.getScbDn());
         persisted.setScbFirstName(entry.getScbFirstName());
-        persisted.setScbZoneId(entry.getScbZoneId());
+        persisted.setScbHzRplanId(entry.getScbHzRplanId());
         persisted.setScbIdentificationNumber(entry.getScbIdentificationNumber());
         persisted.setScbImsi(entry.getScbImsi());
         persisted.setScbLastName(entry.getScbLastName());
@@ -85,6 +85,7 @@ public class SubscriberServiceImp implements SubscriberService {
         persisted.setScbPingPokeCall(entry.getScbPingPokeCall());
         persisted.setScbRplanId(entry.getScbRplanId());
         persisted.setScbSclassId(entry.getScbSclassId());
+        persisted.setScbHomeZone(entry.getScbHomeZone());
         return persisted;
     }
 }

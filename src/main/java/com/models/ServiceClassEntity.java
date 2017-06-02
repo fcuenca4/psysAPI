@@ -13,12 +13,7 @@ public class ServiceClassEntity {
     private String sclassName;
     private String sclassDescription;
     private Timestamp sclassLastUpdateUtc;
-    @SequenceGenerator(
-            allocationSize = 1,
-            name="course_seq",
-            sequenceName="SEQ_PPS_SCLASS_ID"
-    )
-    @GeneratedValue(generator = "course_seq")
+
     @Id
     @Column(name = "SCLASS_ID", nullable = false, precision = 0)
     public long getSclassId() {

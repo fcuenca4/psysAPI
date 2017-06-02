@@ -4,7 +4,6 @@ com/controllers/LockedNumberController.class
 com/models/CommunityEntity.class
 com/controllers/crud/subscriberModule.class
 com/exceptions/EntityNotFoundException.class
-com/repositories/CommunityRepository.class
 com/controllers/DecoratorController.class
 com/models/BlackWhiteListEntity.class
 com/repositories/ServiceTypeRepository.class
@@ -25,7 +24,6 @@ com/models/ZoneEntity.class
 com/repositories/CallHuntingRepository.class
 com/repositories/RatingPlanRepository.class
 com/services/DecoratorService.class
-com/controllers/CommunityController.class
 com/repositories/DecoratorRepository.class
 com/models/LanguageEntity.class
 com/services/CallHuntingService.class

@@ -14,13 +14,8 @@ public class ZoneEntity {
     private String zoneDescription;
     private Timestamp zoneLastUpdateUtc;
 
-    @SequenceGenerator(
-            allocationSize = 1,
-            name = "course_seq",
-            sequenceName = "SEQ_PPS_ZONE_ID"
-    )
+
     @Id
-    @GeneratedValue(generator = "course_seq")
 
     @Column(name = "ZONE_ID", nullable = false, precision = 0)
     public long getZoneId() {

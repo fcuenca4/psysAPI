@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by fcuenca on 5/30/17.
+ * Created by fcuenca on 6/1/17.
  */
 @Entity
 @Table(name = "PPS_SUBSCRIBERS")
@@ -25,17 +25,12 @@ public class SubscriberEntity {
     private Long scbSclassId;
     private String scbPassword;
     private Long scbCommunityId;
-    private Long scbZoneId;
+    private String scbHomeZone;
+    private Long scbHzRplanId;
     private String scbPingPokeCall;
     private Timestamp scbLastUpdateUtc;
-    @SequenceGenerator(
-            allocationSize = 1,
-            name="course_seq",
-            sequenceName="SEQ_PPS_SCB_ID"
-    )
-    @Id
-    @GeneratedValue(generator = "course_seq")
 
+    @Id
     @Column(name = "SCB_ID", nullable = false, precision = 0)
     public long getScbId() {
         return scbId;
@@ -46,10 +41,11 @@ public class SubscriberEntity {
     }
 
     @Basic
-    @Column(name = "SCB_DN", nullable = true, precision = 0, length = 64)
+    @Column(name = "SCB_DN", nullable = true, length = 64)
     public String getScbDn() {
         return scbDn;
     }
+
     public void setScbDn(String scbDn) {
         this.scbDn = scbDn;
     }
@@ -175,7 +171,7 @@ public class SubscriberEntity {
     }
 
     @Basic
-    @Column(name = "SCB_PASSWORD", nullable = true, length = 256)
+    @Column(name = "SCB_PASSWORD", nullable = true, length = 1)
     public String getScbPassword() {
         return scbPassword;
     }
@@ -195,13 +191,23 @@ public class SubscriberEntity {
     }
 
     @Basic
-    @Column(name = "SCB_ZONE_ID", nullable = true, precision = 0)
-    public Long getScbZoneId() {
-        return scbZoneId;
+    @Column(name = "SCB_HOME_ZONE", nullable = true, length = 1)
+    public String getScbHomeZone() {
+        return scbHomeZone;
     }
 
-    public void setScbZoneId(Long scbZoneId) {
-        this.scbZoneId = scbZoneId;
+    public void setScbHomeZone(String scbHomeZone) {
+        this.scbHomeZone = scbHomeZone;
+    }
+
+    @Basic
+    @Column(name = "SCB_HZ_RPLAN_ID", nullable = true, precision = 0)
+    public Long getScbHzRplanId() {
+        return scbHzRplanId;
+    }
+
+    public void setScbHzRplanId(Long scbHzRplanId) {
+        this.scbHzRplanId = scbHzRplanId;
     }
 
     @Basic
@@ -253,7 +259,8 @@ public class SubscriberEntity {
         if (scbPassword != null ? !scbPassword.equals(that.scbPassword) : that.scbPassword != null) return false;
         if (scbCommunityId != null ? !scbCommunityId.equals(that.scbCommunityId) : that.scbCommunityId != null)
             return false;
-        if (scbZoneId != null ? !scbZoneId.equals(that.scbZoneId) : that.scbZoneId != null) return false;
+        if (scbHomeZone != null ? !scbHomeZone.equals(that.scbHomeZone) : that.scbHomeZone != null) return false;
+        if (scbHzRplanId != null ? !scbHzRplanId.equals(that.scbHzRplanId) : that.scbHzRplanId != null) return false;
         if (scbPingPokeCall != null ? !scbPingPokeCall.equals(that.scbPingPokeCall) : that.scbPingPokeCall != null)
             return false;
         if (scbLastUpdateUtc != null ? !scbLastUpdateUtc.equals(that.scbLastUpdateUtc) : that.scbLastUpdateUtc != null)
@@ -280,7 +287,8 @@ public class SubscriberEntity {
         result = 31 * result + (scbSclassId != null ? scbSclassId.hashCode() : 0);
         result = 31 * result + (scbPassword != null ? scbPassword.hashCode() : 0);
         result = 31 * result + (scbCommunityId != null ? scbCommunityId.hashCode() : 0);
-        result = 31 * result + (scbZoneId != null ? scbZoneId.hashCode() : 0);
+        result = 31 * result + (scbHomeZone != null ? scbHomeZone.hashCode() : 0);
+        result = 31 * result + (scbHzRplanId != null ? scbHzRplanId.hashCode() : 0);
         result = 31 * result + (scbPingPokeCall != null ? scbPingPokeCall.hashCode() : 0);
         result = 31 * result + (scbLastUpdateUtc != null ? scbLastUpdateUtc.hashCode() : 0);
         return result;

@@ -15,6 +15,10 @@ public class BlackWhiteListEntity {
     private Long bwlSvtId;
     private String bwlDn;
     private Timestamp bwlLastUpdateUtc;
+
+
+
+    private String bwlDescription;
     @SequenceGenerator(
             allocationSize = 1,
             name="course_seq",
@@ -61,6 +65,15 @@ public class BlackWhiteListEntity {
         this.bwlSvtId = bwlSvtId;
     }
 
+    @Basic
+    @Column(name = "BWL_DESCRIPTION", nullable = true, length = 255)
+    public String getBwlDescription() {
+        return bwlDescription;
+    }
+
+    public void setBwlDescription(String bwlDescription) {
+        this.bwlDescription = bwlDescription;
+    }
     @Basic
     @Column(name = "BWL_DN", nullable = true, length = 64)
     public String getBwlDn() {

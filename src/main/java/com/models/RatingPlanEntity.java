@@ -13,13 +13,7 @@ public class RatingPlanEntity {
     private String rplanName;
     private String rplanDescription;
     private Timestamp rplanLastUpdateUtc;
-    @SequenceGenerator(
-            allocationSize = 1,
-            name="course_seq",
-            sequenceName="SEQ_PPS_RPLAN_ID"
-    )
     @Id
-    @GeneratedValue(generator = "course_seq")
     @Column(name = "RPLAN_ID", nullable = false, precision = 0)
     public long getRplanId() {
         return rplanId;

@@ -13,12 +13,6 @@ public class CommunityEntity {
     private String communityName;
     private String communityDescription;
     private Timestamp communityLastUpdateUtc;
-    @SequenceGenerator(
-            allocationSize = 1,
-            name="course_seq",
-            sequenceName="SEQ_PPS_COMMUNITY_ID"
-    )
-    @GeneratedValue(generator = "course_seq")
     @Id
     @Column(name = "COMMUNITY_ID", nullable = false, precision = 0)
     public long getCommunityId() {
