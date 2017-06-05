@@ -58,7 +58,7 @@ public class SubscriberEntity {
         this.scbDn = scbDn;
     }
 
-    @Column(name = "SCB_Yield_Zone", nullable = true, length = 1)
+    @Column(name = "SCB_YIELD_ZONE", nullable = true, length = 1)
     public String getYieldZone() {
         return yieldZone;
     }
@@ -279,10 +279,7 @@ public class SubscriberEntity {
         if (scbHzRplanId != null ? !scbHzRplanId.equals(that.scbHzRplanId) : that.scbHzRplanId != null) return false;
         if (scbPingPokeCall != null ? !scbPingPokeCall.equals(that.scbPingPokeCall) : that.scbPingPokeCall != null)
             return false;
-        if (scbLastUpdateUtc != null ? !scbLastUpdateUtc.equals(that.scbLastUpdateUtc) : that.scbLastUpdateUtc != null)
-            return false;
-
-        return true;
+        return scbLastUpdateUtc != null ? scbLastUpdateUtc.equals(that.scbLastUpdateUtc) : that.scbLastUpdateUtc == null;
     }
 
     @Override
